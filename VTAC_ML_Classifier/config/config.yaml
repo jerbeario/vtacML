@@ -1,0 +1,84 @@
+Inputs:
+  path: '/Users/jeremypalmerio/Repos/VTAC_ML/data/combined_qpo_vt_all_cases_with_GRB_with_flags.parquet'
+#  path: '~/Repos/VTAC_ML/data/combined_qpo_vt_with_GRB.parquet'
+#  path: '/Users/jeremypalmerio/Repos/VTAC_ML/data/combined_qpo_vt_faint_case_with_GRB_with_flags.parquet'
+  columns: ["MAGCAL_R0",
+    "MAGCAL_B0",
+    "MAGERR_R0",
+    "MAGERR_B0",
+    "MAGCAL_R1",
+    "MAGCAL_B1",
+    "MAGERR_R1",
+    "MAGERR_B1",
+    "MAGVAR_R1",
+    "MAGVAR_B1",
+#    "CASE",
+#    "EFLAG_B1"
+    "NEW_SRC",  # is source in catalogue ? empty string if not; string if true
+    "DMAG_CAT" # for sources found in cat, is mag different
+    ]
+  target_column: 'IS_GRB'
+Models:
+  rfc:
+    class: RandomForestClassifier()
+    param_grid:
+      'rfc__n_estimators': [100, 200, 300]  # Number of trees in the forest
+      'rfc__max_depth': [4, 6, 8]  # Maximum depth of the tree
+      'rfc__min_samples_split': [2, 5, 10]  # Minimum number of samples required to split an internal node
+      'rfc__min_samples_leaf': [1, 2, 4]  # Minimum number of samples required to be at a leaf node
+      'rfc__bootstrap': [True, False]  # Whether bootstrap samples are used when building trees
+  ada:
+    class: AdaBoostClassifier()
+    param_grid:
+      'ada__n_estimators': [50, 100, 200]  # Number of weak learners
+      'ada__learning_rate': [0.01, 0.1, 1]  # Learning rate
+      'ada__algorithm': ['SAMME']  # Algorithm for boosting
+#  svc:
+#    class: SVC()
+#    param_grid:
+#      'svc__C': [0.1, 1, 10, 100]  # Regularization parameter
+#      'svc__kernel': ['poly', 'rbf', 'sigmoid']  # Kernel type to be used in the algorithm
+#      'svc__gamma': ['scale', 'auto']  # Kernel coefficient
+#      'svc__degree': [3, 4, 5]  # Degree of the polynomial kernel function (if `kernel` is 'poly')
+#  gnb:
+#    class: GaussianNB()
+#    param_grid:
+#      'gnb__var_smoothing': [1e-09, 1e-08, 1e-07]  # Portion of the largest variance of all features added to variances for calculation stability
+  knn:
+    class: KNeighborsClassifier()
+    param_grid:
+      'knn__n_neighbors': [3, 5, 7, 9]  # Number of neighbors to use
+      'knn__weights': ['uniform', 'distance']  # Weight function used in prediction
+      'knn__algorithm': ['ball_tree', 'kd_tree', 'brute']  # Algorithm used to compute the nearest neighbors
+      'knn__p': [1, 2]  # Power parameter for the Minkowski metric
+#  lr:
+#    class: LogisticRegression()
+#    param_grid:
+#      'lr__penalty': ['l1', 'l2', 'elasticnet']  # Specify the norm of the penalty
+#      'lr__C': [0.01, 0.1, 1, 10]  # Inverse of regularization strength
+#      'lr__solver': ['newton-cg', 'lbfgs', 'liblinear', 'sag', 'saga']  # Algorithm to use in the optimization problem
+#      'lr__max_iter': [100, 200, 300]  # Maximum number of iterations taken for the solvers to converge
+#  dt:
+#    class: DecisionTreeClassifier()
+#    param_grid:
+#      'dt__criterion': ['gini', 'entropy']  # The function to measure the quality of a split
+#      'dt__splitter': ['best', 'random']  # The strategy used to choose the split at each node
+#      'dt__max_depth': [4, 6, 8, 10]  # Maximum depth of the tree
+#      'dt__min_samples_split': [2, 5, 10]  # Minimum number of samples required to split an internal node
+#      'dt__min_samples_leaf': [1, 2, 4]  # Minimum number of samples required to be at a leaf node
+#  gbc:
+#    class: GradientBoostingClassifier()
+#    param_grid:
+#      'gbc__n_estimators': [100, 200, 300]  # Number of boosting stages to be run
+#      'gbc__learning_rate': [0.01, 0.1, 0.2]  # Learning rate
+#      'gbc__max_depth': [3, 4]  # Maximum depth of the individual estimators
+#      'gbc__subsample': [0.8, 0.9, 1.0]  # Fraction of samples used for fitting the individual base learners
+#      'gbc__min_samples_split': [2, 5, 10]  # Minimum number of samples required to split an internal node
+#      'gbc__min_samples_leaf': [1, 2, 4]  # Minimum number of samples required to be at a leaf node
+
+Outputs:
+  model_path: '/Users/jeremypalmerio/Repos/VTAC_ML/VTAC_ML_Classifier/output/'
+  viz_path: '/Users/jeremypalmerio/Repos/VTAC_ML/VTAC_ML_Classifier/output/visualizations/'
+  plot_correlation:
+    flag: True
+    path: 'output/corr_plots/'
