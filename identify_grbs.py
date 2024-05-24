@@ -12,15 +12,16 @@ from vtac.processor import create_valid_sequences
 import sys
 
 logging.basicConfig(
-    stream=sys.stdout, level=logging.DEBUG,
+    stream=sys.stdout,
+    level=logging.DEBUG,
     format="%(levelname)-8s : %(message)s",
 )
 
 # Define directories
 # VT_SIM_DIR = Path(os.environ["VT_SIM_DIR"])
 # SVOM_DIR = Path(os.environ["SVOM_DIR"])
-SVOM_DIR = Path('~/SVOM_pipeline/').expanduser()
-VT_SIM_DIR = SVOM_DIR/'VT_simulations'
+SVOM_DIR = Path("~/SVOM_pipeline/").expanduser()
+VT_SIM_DIR = SVOM_DIR / "VT_simulations"
 
 log = logging.getLogger(__name__)
 
@@ -38,12 +39,12 @@ def get_GRB_ids(qsrclist_vt_fname, GRB_pos=(250, 250), pos_err=(1, 1)):
             continue
         seq = hdu.name.split("_")[-1]
         tab = Table.read(hdu)
-        cond = (np.abs(tab["X"]-X_GRB) <= dx) & (np.abs(tab["Y"]-Y_GRB) <= dy)
+        cond = (np.abs(tab["X"] - X_GRB) <= dx) & (np.abs(tab["Y"] - Y_GRB) <= dy)
 
         if len(tab[cond]) == 0:
             log.debug(f"In sequence {seq}: no sources found at GRB position: {GRB_pos}")
         elif len(tab[cond]) == 1:
-            ids["OBJID_"+seq] = tab[cond]["OBJID"]
+            ids["OBJID_" + seq] = tab[cond]["OBJID"]
             log.debug(f"In sequence {seq}: one source found at GRB position: {GRB_pos}")
         else:
             log.warning(
@@ -53,14 +54,18 @@ def get_GRB_ids(qsrclist_vt_fname, GRB_pos=(250, 250), pos_err=(1, 1)):
     return ids
 
 
-if __name__ == '__main__':
-    # From Yulei GRB position (X,Y)
+if __name__ == "__main__":
+    # From Yulei, GRB position (X,Y)
     GRB_pos = {
         "bright_case1": [360.50, 291.50],
         "bright_case1a": [346.50, 321.50],
         "bright_case2": [402.50, 219.50],
         "bright_case3": [402.50, 219.50],
         "bright_case4": [377.50, 206.50],
+        "faint_case1": [335.0, 270.0],
+        "faint_case2": [61.51, 407.50],
+        "faint_case3": [405.00, 60.00],
+        "faint_case4": [78.50, 313.50],
     }
 
     # Set up
@@ -91,14 +96,14 @@ if __name__ == '__main__':
         for sim_id in sim_ids:
             log.info(f"Processing simulation {sim_id}")
 
-            qsrclist_vt_fname = VT_SIM_DIR / f"{case}/fits/qsrclist_vt/{sim_id}_qsrclist_vt.fits"
+            qsrclist_vt_fname = (
+                VT_SIM_DIR / f"{case}/fits/qsrclist_vt/{sim_id}_qsrclist_vt.fits"
+            )
             qpo_vt_fname = VT_SIM_DIR / f"{case}/fits/qpo_vt/{sim_id}_qpo_vt.fits"
 
             if qsrclist_vt_fname.exists():
                 qsrclist_ids = get_GRB_ids(
-                    qsrclist_vt_fname,
-                    GRB_pos=GRB_pos[case],
-                    pos_err=(1, 1)
+                    qsrclist_vt_fname, GRB_pos=GRB_pos[case], pos_err=(1, 1)
                 )
                 # If no IDs, skip
                 if not qsrclist_ids:
@@ -108,15 +113,19 @@ if __name__ == '__main__':
                     n_no_GRB += 1
                     continue
             else:
-                log.warning(f"No QSRCLIST_VT for simulation {sim_id} of {case}. Skipping.")
+                log.warning(
+                    f"No QSRCLIST_VT for simulation {sim_id} of {case}. Skipping."
+                )
                 n_no_sim += 1
                 continue
 
             # Check file exists
             if qpo_vt_fname.exists():
-                _tab = Table.read(qpo_vt_fname, hdu='COMBINED')
+                _tab = Table.read(qpo_vt_fname, hdu="COMBINED")
             else:
-                log.warning(f"QSRCLIST_VT exists but no QPO_VT for simulation {sim_id} of {case}. Skipping.")
+                log.warning(
+                    f"QSRCLIST_VT exists but no QPO_VT for simulation {sim_id} of {case}. Skipping."
+                )
                 n_no_qpo += 1
                 continue
 
@@ -143,11 +152,14 @@ if __name__ == '__main__':
             # Remove unwanted columns
             _tab.remove_columns(
                 ["RADEC_OG", "IN_MXT"]
-                + ["OBJID_"+seq for seq in valid_sequences]
-                + ["RA_"+seq for seq in valid_sequences]
-                + ["DEC_"+seq for seq in valid_sequences]
-                + ["XFLAG_"+seq for seq in valid_sequences]
-                + ["VFLAG_"+seq for seq in create_valid_sequences(seq_num=["1", "2", "3"])]
+                + ["OBJID_" + seq for seq in valid_sequences]
+                + ["RA_" + seq for seq in valid_sequences]
+                + ["DEC_" + seq for seq in valid_sequences]
+                + ["XFLAG_" + seq for seq in valid_sequences]
+                + [
+                    "VFLAG_" + seq
+                    for seq in create_valid_sequences(seq_num=["1", "2", "3"])
+                ]
                 # + ["NEW_SRC", "MAG_VAR", "DMAG_CAT"]
             )
             # Add sim_id column
@@ -155,10 +167,10 @@ if __name__ == '__main__':
             _tab["SIM_ID"] = int(sim_id) * np.ones(len(_tab), dtype=int)
 
             # Create initial table
-            if 'tab' not in locals().keys():
+            if "tab" not in locals().keys():
                 tab = _tab
             else:
-                tab = vstack([tab, _tab], metadata_conflicts='silent')
+                tab = vstack([tab, _tab], metadata_conflicts="silent")
             n_sim += 1
 
         t2 = time.time()
@@ -177,4 +189,6 @@ if __name__ == '__main__':
     tab.info()
 
     # tab.write(VT_SIM_DIR/'combined_qpo_vt.parquet', format='parquet')
-    tab.to_pandas().to_parquet(VT_SIM_DIR/'combined_qpo_vt_with_GRB_with_flags.parquet')
+    tab.to_pandas().to_parquet(
+        VT_SIM_DIR / "combined_qpo_vt_bright_case_with_GRB_with_flags.parquet"
+    )
