@@ -14,9 +14,7 @@ vtacML is a machine learning package designed for the analysis of data from the 
   - [Using Pre-trained Model for Immediate Prediction](#using-pre-trained-model-for-immediate-prediction)
   - [Examples](#examples)
 - [Documentation](#documentation)
-- [Contributing](#contributing)
-- [License](#license)
-- [Contact](#contact)
+
 
 ## Overview
 
@@ -35,7 +33,7 @@ pip install vtacML
 Alternatively, you can clone the repository and install the package locally:
 
 ```sh
-git clone https://github.com/yourusername/vtacML.git
+git clone https://github.com/jerbeario/VTAC_ML.git
 cd vtacML
 pip install .
 ```
@@ -114,52 +112,3 @@ print(predictions)
 ```
 
 ## Documentation
-
-See documentation at 
-
-
-### Setting Up Development Environment
-
-
-To set up a development environment, you can use the provided `requirements-dev.txt`:
-
-
-```sh
-
-conda create --name vtacML-dev python=3.8
-
-conda activate vtacML-dev
-
-pip install -r requirements-dev.txt
-
-```
-
-
-### Running Tests
-
-
-To run tests, use the following command:
-
-
-```sh
-
-pytest
-
-```
-
-
-## License
-
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
-
-
-## Contact
-
-
-For questions or support, please contact:
-
-
-- Your Name - [palmerio.jeremy@gmail.com](mailto:palmerio.jeremy@gmail.com)
-
-- Project Link: [https://github.com/jerbeario/VTAC_ML](https://github.com/jerbeario/VTAC_ML)

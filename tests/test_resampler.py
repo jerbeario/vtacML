@@ -1,7 +1,7 @@
 import pandas as pd
 from imblearn.over_sampling import SMOTE
 
-data = pd.read_parquet('~/Repos/VTAC_ML/data/combined_qpo_vt_with_GRB.parquet')
+data = pd.read_parquet('/vtacML/data/combined_qpo_vt_with_GRB.parquet')
 print(data['IS_GRB'].value_counts())
 columns = ["MAGCAL_R0",
            "MAGCAL_B0",

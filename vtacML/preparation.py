@@ -63,6 +63,16 @@ class Cleaner(BaseEstimator, TransformerMixin):
         return self  # Nothing to fit, just return self
 
     def transform(self, X, y=None):
+        e_flags = ['EFLAG_R0',
+                   'EFLAG_R1',
+                   'EFLAG_R2',
+                   'EFLAG_R3',
+                   'EFLAG_B0',
+                   'EFLAG_B1',
+                   'EFLAG_B2',
+                   'EFLAG_B3']
+
+        e_flags_in_cols = [x for x in self.variables if x in e_flags]
 
         if not self.fitted:
             raise ValueError("The transformer has not been fitted yet. "
@@ -70,36 +80,13 @@ class Cleaner(BaseEstimator, TransformerMixin):
 
         X_ = X.loc[:, self.variables]
         transformed_X = self.handle_nans(X_)  # Store the transformed data
+
+        if len(e_flags_in_cols) > 0:
+            for e_flag in e_flags_in_cols:
+                transformed_X[e_flag] = transformed_X[e_flag].fillna(-1)
         if 'NEW_SRC' in self.variables:
             transformed_X = self.clean_binary(transformed_X, 'NEW_SRC')
         if 'DMAG_CAT' in self.variables:
             transformed_X = self.clean_binary(transformed_X, 'DMAG_CAT')
-        return transformed_X  # Return the transformed data
 
-
-def get_data(path):
-    data = pd.read_parquet(path=path, engine='fastparquet')
-    return data
-
-
-def get_class_weights(data, target_column):
-    y = data[target_column]
-    print(np.unique(y))
-    class_weights = compute_class_weight(
-        class_weight="balanced",
-        classes=np.unique(y),
-        y=y
-    )
-    weight_dict = dict(zip([0, 1], class_weights))
-    return weight_dict
-
-
-def plot_correlation(data, plot_path):
-    if os.path.isdir(plot_path):
-        shutil.rmtree(plot_path)
-    os.makedirs(plot_path)
-
-    plt.figure(figsize=(12, 12))
-    corr_matrix = data.corr()
-    sns.heatmap(abs(corr_matrix), cmap='Blues')
-    plt.savefig(plot_path)
+        return transformed_X.dropna()  # Return the transformed data

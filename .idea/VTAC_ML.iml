@@ -8,7 +8,7 @@
   <component name="PyNamespacePackagesService">
     <option name="namespacePackageFolders">
       <list>
-        <option value="$MODULE_DIR$/GRB-hunter" />
+        <option value="$MODULE_DIR$/vtacML" />
       </list>
     </option>
   </component>

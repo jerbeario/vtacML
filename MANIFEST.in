@@ -1,0 +1,17 @@
+include README.md
+include LICENSE
+include vtacML/config/config.yaml
+include vtacML/data/combined_qpo_vt_all_cases_with_GRB_with_flags.parquet
+include vtacML/output/models/0.978_svc_best_model.pkl
+#include vtacML/output/models/0.977_knn_best_model.pkl
+#include vtacML/output/models/0.974_rfc_best_model.pkl
+#include vtacML/output/models/0.968_ada_best_model.pkl
+#include vtacML/output/models/0.869_lr_best_model.pkl
+#include vtacML/output/models/0.967_dt_best_model.pkl
+
+
+exclude vtacML/output/models/ada_grid_search.pkl
+exclude vtacML/output/models/rfc_grid_search.pkl
+exclude vtacML/output/models/svc_grid_search.pkl
+exclude vtacML/output/models/knn_grid_search.pkl
+exclude vtacML/output/models/lr_grid_search.pkl
