@@ -1,0 +1,78 @@
+# Default config file, used to search for best model using only first two sequences (X0, X1) from the VT pipeline
+Inputs:
+  file: 'combined_qpo_vt_all_cases_with_GRB_with_flags.parquet' # Data file used for training. Located in /data/
+#  path: 'combined_qpo_vt_with_GRB.parquet'
+#  path: 'combined_qpo_vt_faint_case_with_GRB_with_flags.parquet'
+  columns: [
+    "MAGCAL_R0",
+    "MAGCAL_B0",
+    "MAGERR_R0",
+    "MAGERR_B0",
+    "MAGCAL_R1",
+    "MAGCAL_B1",
+    "MAGERR_R1",
+    "MAGERR_B1",
+    "MAGVAR_R1",
+    "MAGVAR_B1",
+    'EFLAG_R0',
+    'EFLAG_R1',
+    'EFLAG_B0',
+    'EFLAG_B1',
+    "NEW_SRC",
+    "DMAG_CAT"
+    ] # features used for training
+  target_column: 'IS_GRB' # feature column that holds the class information to be predicted
+
+# Set of models and parameters to perform GridSearchCV over
+Models:
+  rfc:
+    class: RandomForestClassifier()
+    param_grid:
+      'rfc__n_estimators': [100, 200, 300]  # Number of trees in the forest
+      'rfc__max_depth': [4, 6, 8]  # Maximum depth of the tree
+      'rfc__min_samples_split': [2, 5, 10]  # Minimum number of samples required to split an internal node
+      'rfc__min_samples_leaf': [1, 2, 4]  # Minimum number of samples required to be at a leaf node
+      'rfc__bootstrap': [True, False]  # Whether bootstrap samples are used when building trees
+  ada:
+    class: AdaBoostClassifier()
+    param_grid:
+      'ada__n_estimators': [50, 100, 200]  # Number of weak learners
+      'ada__learning_rate': [0.01, 0.1, 1]  # Learning rate
+      'ada__algorithm': ['SAMME']  # Algorithm for boosting
+  svc:
+    class: SVC()
+    param_grid:
+      'svc__C': [0.1, 1, 10, 100]  # Regularization parameter
+      'svc__kernel': ['poly', 'rbf', 'sigmoid']  # Kernel type to be used in the algorithm
+      'svc__gamma': ['scale', 'auto']  # Kernel coefficient
+      'svc__degree': [3, 4, 5]  # Degree of the polynomial kernel function (if `kernel` is 'poly')
+  knn:
+    class: KNeighborsClassifier()
+    param_grid:
+      'knn__n_neighbors': [3, 5, 7, 9]  # Number of neighbors to use
+      'knn__weights': ['uniform', 'distance']  # Weight function used in prediction
+      'knn__algorithm': ['ball_tree', 'kd_tree', 'brute']  # Algorithm used to compute the nearest neighbors
+      'knn__p': [1, 2]  # Power parameter for the Minkowski metric
+  lr:
+    class: LogisticRegression()
+    param_grid:
+      'lr__penalty': ['l1', 'l2', 'elasticnet']  # Specify the norm of the penalty
+      'lr__C': [0.01, 0.1, 1, 10]  # Inverse of regularization strength
+      'lr__solver': ['newton-cg', 'lbfgs', 'liblinear', 'sag', 'saga']  # Algorithm to use in the optimization problem
+      'lr__max_iter': [100, 200, 300]  # Maximum number of iterations taken for the solvers to converge
+  dt:
+    class: DecisionTreeClassifier()
+    param_grid:
+      'dt__criterion': ['gini', 'entropy']  # The function to measure the quality of a split
+      'dt__splitter': ['best', 'random']  # The strategy used to choose the split at each node
+      'dt__max_depth': [4, 6, 8, 10]  # Maximum depth of the tree
+      'dt__min_samples_split': [2, 5, 10]  # Minimum number of samples required to split an internal node
+      'dt__min_samples_leaf': [1, 2, 4]  # Minimum number of samples required to be at a leaf node
+
+# Output directories
+Outputs:
+  model_path: '/output/models'
+  viz_path: '/output/visualizations/'
+  plot_correlation:
+    flag: True
+    path: 'output/corr_plots/'
