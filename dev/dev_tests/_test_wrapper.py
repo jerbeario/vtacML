@@ -4,7 +4,7 @@ import os
 
 cdir = os.getcwd()
 print(cdir)
-config_path = "../vtacML/config/config.yaml"
+config_path = "../../vtacML/config/config.yaml"
 
 data = pd.read_parquet(f'{cdir}/vtacML/data/combined_qpo_vt_all_cases_with_GRB_with_flags.parquet')
 print(data.head())

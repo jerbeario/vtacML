@@ -1,5 +1,6 @@
+# Default config file, used to search for best model using only first two sequences (X0, X1) from the VT pipeline
 Inputs:
-  file: 'combined_qpo_vt_all_cases_with_GRB_with_flags.parquet'
+  file: 'combined_qpo_vt_all_cases_with_GRB_with_flags.parquet' # Data file used for training. Located in /data/
 #  path: 'combined_qpo_vt_with_GRB.parquet'
 #  path: 'combined_qpo_vt_faint_case_with_GRB_with_flags.parquet'
   columns: [
@@ -13,19 +14,16 @@ Inputs:
     "MAGERR_B1",
     "MAGVAR_R1",
     "MAGVAR_B1",
-#    "CASE",
     'EFLAG_R0',
     'EFLAG_R1',
-#    'EFLAG_R2',
-#    'EFLAG_R3',
     'EFLAG_B0',
     'EFLAG_B1',
-#    'EFLAG_B2',
-#    'EFLAG_B3',
-    "NEW_SRC",  # is source in catalogue ? empty string if not; string if true
-    "DMAG_CAT" # for sources found in cat, is mag different
-    ]
-  target_column: 'IS_GRB'
+    "NEW_SRC",
+    "DMAG_CAT"
+    ] # features used for training
+  target_column: 'IS_GRB' # feature column that holds the class information to be predicted
+
+# Set of models and parameters to perform GridSearchCV over
 Models:
   rfc:
     class: RandomForestClassifier()
@@ -71,6 +69,7 @@ Models:
       'dt__min_samples_split': [2, 5, 10]  # Minimum number of samples required to split an internal node
       'dt__min_samples_leaf': [1, 2, 4]  # Minimum number of samples required to be at a leaf node
 
+# Output directories
 Outputs:
   model_path: '/output/models'
   viz_path: '/output/visualizations/'

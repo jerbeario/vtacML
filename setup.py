@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='vtacML',
-    version='0.1.16',
+    version='0.1.17',
     packages=find_packages(include=['vtacML', 'vtacML.*']),
     install_requires=[
         'numpy>=1.26.3',
