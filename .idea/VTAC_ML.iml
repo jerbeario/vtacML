@@ -5,11 +5,18 @@
     <orderEntry type="jdk" jdkName="VTAC" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
+  <component name="PyDocumentationSettings">
+    <option name="format" value="NUMPY" />
+    <option name="myDocStringFormat" value="NumPy" />
+  </component>
   <component name="PyNamespacePackagesService">
     <option name="namespacePackageFolders">
       <list>
         <option value="$MODULE_DIR$/vtacML" />
       </list>
     </option>
+  </component>
+  <component name="TestRunnerService">
+    <option name="PROJECT_TEST_RUNNER" value="py.test" />
   </component>
 </module>

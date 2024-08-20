@@ -1,7 +1,7 @@
 import logging
 import os
 import matplotlib.pyplot as plt
-import numpy as np
+# import numpy as np
 import pandas as pd
 import yaml
 import joblib
@@ -20,9 +20,8 @@ from sklearn.preprocessing import StandardScaler, Normalizer
 from imblearn.over_sampling import SMOTE
 
 from yellowbrick import ROCAUC
-from yellowbrick.model_selection import FeatureImportances, ValidationCurve
+from yellowbrick.model_selection import FeatureImportances
 from yellowbrick.classifier import ClassificationReport, ConfusionMatrix, PrecisionRecallCurve, ClassPredictionError
-from yellowbrick.model_selection import RFECV
 
 from .preparation import Cleaner
 from .utils import get_path
@@ -43,8 +42,6 @@ def predict_from_best_pipeline(X: pd.DataFrame, prob_flag=False, model_name='0.9
             Whether to return probabilities, by default False.
         model_name : str, optional
             Name of the model to use, by default '0.974_rfc_best_model.pkl'
-        model_path : str, optional
-            Path to the model to use for prediction, by default 'None'
         config_path : str, optional
             Path to the configuration file, by default '../config/config.yaml'.
 
@@ -64,7 +61,8 @@ def predict_from_best_pipeline(X: pd.DataFrame, prob_flag=False, model_name='0.9
 
 class VTACMLPipe:
     """
-    A machine learning pipeline for training and evaluating an optimal model for optical identification of GRBs for the SVOM mission.
+    A machine learning pipeline for training and evaluating an optimal model for optical identification of GRBs for the
+    SVOM mission.
 
     Parameters
     ----------
@@ -184,7 +182,7 @@ class VTACMLPipe:
 
         if self.preprocessing.steps is None:
             print("No preprocessing steps")
-        model_path = None
+        # model_path = None
         best_score = 0
         for name, model in models.items():
 
@@ -259,7 +257,7 @@ class VTACMLPipe:
         self.best_model = joblib.load(model_path)
         logging.info(f'Loaded {model_path}')
 
-    def evaluate(self, name, plot=False, score=f1_score):
+    def evaluate(self, name, plot=False):
         """
             Evaluate the best model with various metrics and visualization.
 
@@ -269,9 +267,6 @@ class VTACMLPipe:
                 The name for the evaluation output.
             plot : bool, optional
                 If True, generates and saves evaluation plots, by default False.
-            score : callable, optional
-                The scoring function to use for evaluation, by default f1_score.
-
             """
         viz_path = self.config['Outputs']['viz_path']
         output_path = get_path(f'{viz_path}/{name}')
@@ -522,7 +517,6 @@ class VTACMLPipe:
         )
         print('Confusion Matrix:')
         print(test_conf_matrix)
-
 # def hyperparameter_valid_curve(self, outpath):
 #     """
 #         Validate hyperparameters and generate validation curves.
@@ -619,5 +613,3 @@ class VTACMLPipe:
 #             plt.savefig(
 #                 f'/output/visualizations/knn_plots/{features[i]}_vs_{features[j]}_knn_neighbors.pdf'
 #             )
-
-
