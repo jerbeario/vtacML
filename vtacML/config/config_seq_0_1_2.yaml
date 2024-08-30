@@ -6,18 +6,30 @@ Inputs:
   columns: [
     "MAGCAL_R0",
     "MAGCAL_B0",
-    "MAGERR_R0",
-    "MAGERR_B0",
     "MAGCAL_R1",
     "MAGCAL_B1",
+    "MAGCAL_R2",
+    "MAGCAL_B2",
+
+    "MAGERR_R0",
+    "MAGERR_B0",
     "MAGERR_R1",
     "MAGERR_B1",
+    "MAGERR_R2",
+    "MAGERR_B2",
+
     "MAGVAR_R1",
     "MAGVAR_B1",
+    "MAGVAR_R2",
+    "MAGVAR_B2",
+
     'EFLAG_R0',
-    'EFLAG_R1',
     'EFLAG_B0',
+    'EFLAG_R1',
     'EFLAG_B1',
+    'EFLAG_R2',
+    'EFLAG_B2',
+
     "NEW_SRC",
     "DMAG_CAT"
     ] # features used for training

@@ -1,4 +1,3 @@
-
 # vtacML
 
 vtacML is a machine learning package designed for the analysis of data from the Visible Telescope (VT) on the SVOM mission. This package uses machine learning models to analyze a dataframe of features from VT observations and identify potential gamma-ray burst (GRB) candidates. The primary goal of vtacML is to integrate into the SVOM data analysis pipeline and add a feature to each observation indicating the probability that it is a GRB candidate.
@@ -34,7 +33,7 @@ pip install vtacML
 Alternatively, you can clone the repository and install the package locally:
 
 ```sh
-git clone https://github.com/yourusername/vtacML.git
+git clone https://github.com/jerbeario/vtacML.git
 cd vtacML
 pip install .
 ```
@@ -216,7 +215,7 @@ conda create --name vtacML-dev python=3.8
 
 conda activate vtacML-dev
 
-pip install -r requirements-dev.txt
+pip install -r requirements.txt
 
 ```
 
@@ -246,6 +245,6 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 For questions or support, please contact:
 
 
-- Your Name - [palmerio.jeremy@gmail.com](mailto:palmerio.jeremy@gmail.com)
+- Jeremy Palmerio - [palmerio.jeremy@gmail.com](mailto:palmerio.jeremy@gmail.com)
 
-- Project Link: [https://github.com/jerbeario/VTAC_ML](https://github.com/jerbeario/VTAC_ML)
+- Project Link: [https://github.com/jerbeario/vtacML](https://github.com/jerbeario/VTAC_ML)

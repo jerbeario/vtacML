@@ -1,12 +1,15 @@
+""" Pipeline for optimizing, training and using a classification pipeline to flag
+observation as GRBs or not for the VTAC pipeline of the SVOM mission. """
+
 import logging
 import os
+
 import matplotlib.pyplot as plt
 
 # import numpy as np
 import pandas as pd
 import yaml
 import joblib
-
 
 from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
 from sklearn.neighbors import KNeighborsClassifier
@@ -34,8 +37,13 @@ from yellowbrick.classifier import (
     ClassPredictionError,
 )
 
+
 from .preparation import Cleaner
 from .utils import get_path
+
+# from .utils import ROOTDIR
+
+# use ROOTDIR/
 
 log = logging.getLogger(__name__)
 
@@ -109,9 +117,9 @@ class VTACMLPipe:
         self.preprocessing = Pipeline(steps=[], verbose=True)
         self.full_pipeline = Pipeline(steps=[], verbose=True)
         self.models = {}
+        self.cv_results = {}
         self.best_model = None
         self.y_predict = None
-        self.y_predict_prob = None
 
         # Load configs from config file
         self.load_config(config_file)
@@ -170,7 +178,16 @@ class VTACMLPipe:
             if model == "ada":
                 self.models[model] = AdaBoostClassifier()
 
-    def train(self, save_all_model=False, resample_flag=False, scoring="f1", cv=5):
+    def train(
+        self,
+        save_all_model=False,
+        save_path="outputs/models",
+        resample_flag=False,
+        scoring="f1",
+        cv=5,
+        verbose=1,
+        n_jobs=None,
+    ):
         """
         Train the pipeline with the given data.
 
@@ -178,12 +195,19 @@ class VTACMLPipe:
         ----------
         save_all_model : bool, optional
             Whether to save best model of each model type to output directory. Default is False.
+        save_path : str, optional
+            Path to save models. Default is 'outputs/models'.
         resample_flag : bool, optional
             Whether to resample the data. Default is False
         scoring : str, optional
             The scoring function to use. Default is 'f1'.
         cv : int, optional
             The cross-validation split to use. Default is 5.
+        n_jobs : int, optional
+            The number of CPU cores to use. Default is None. See `sklearn.model_selection.GridSearchCV`.
+        verbose : int, optional
+            The verbosity of the training process. Default is 1.
+
 
         Returns
         -------
@@ -207,21 +231,30 @@ class VTACMLPipe:
             log.info("Model: {}".format(name))
 
             self.full_pipeline = Pipeline(
-                steps=self.preprocessing.steps.copy(), verbose=True
+                steps=self.preprocessing.steps.copy(), verbose=False
             )
             self.full_pipeline.steps.append((name, model))
             log.info(self.full_pipeline.steps)
 
             # model fitting
             grid_search = GridSearchCV(
-                self.full_pipeline, param_grid, scoring=scoring, verbose=2, cv=cv
+                self.full_pipeline,
+                param_grid,
+                scoring=scoring,
+                verbose=verbose,
+                cv=cv,
+                n_jobs=n_jobs,
+                pre_dispatch="2*n_jobs",
             )
             grid_search.fit(self.X_train, self.y_train)
+            # grid_search.fit(self.X_train, self.y_train)
+            self.cv_results[name] = grid_search.cv_results_
+            print(self.cv_results[name])
 
             model_filename = (
                 f"{round(grid_search.best_score_, 3)}_{name}_best_model.pkl"
             )
-            model_path = get_path(f"output/models/{model_filename}")
+            model_path = get_path(save_path + model_filename)
             if save_all_model:
                 joblib.dump(grid_search.best_estimator_, model_path)
 
@@ -417,11 +450,10 @@ class VTACMLPipe:
         """
         X = X[self.X_columns]
         if prob is True:
-            self.y_predict_prob = self.best_model.predict_proba(X)
-            return self.y_predict_prob
+            self.y_predict = self.best_model.predict_proba(X)
         else:
             self.y_predict = self.best_model.predict(X)
-            return self.y_predict
+        return self.y_predict
 
     @staticmethod
     def _get_data(data_file: str):
