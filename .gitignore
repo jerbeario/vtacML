@@ -130,3 +130,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# project related
+vtacML/output/seq_0_1_2_3/0.985_knn_best_model.pkl
+vtacML/output/seq_0_1_2/0.982_knn_best_model.pkl
+vtacML/output/seq_0_1/0.977_knn_best_model.pkl
+vtacML/output/seq_0/0.895_knn_best_model.pkl
