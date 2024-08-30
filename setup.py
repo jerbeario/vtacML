@@ -2,25 +2,28 @@ from setuptools import setup, find_packages
 
 setup(
     name='vtacML',
-    version='0.1.17',
-    packages=find_packages(include=['vtacML', 'vtacML.*']),
+    version='0.1.18',
+    packages=find_packages(include=['vtacML']),
     install_requires=[
-        'numpy>=1.26.3',
-        'matplotlib>=3.8.0',
-        'pandas>=2.1.4',
+        'numpy==1.26.3',
+        'matplotlib==3.8.0',
+        'pandas==2.1.4',
         'scikit-learn==1.3.0',
-        'seaborn>=0.12.2',
-        'yellowbrick>=1.5',
-        'pyyaml>=6.0.1',
-        'imblearn>=0.0',
-        'fastparquet>=2023.8.0',
-        'joblib>=1.2.0'
+        'seaborn==0.12.2',
+        'yellowbrick==1.5',
+        'pyyaml==6.0.1',
+        'imblearn==0.0',
+        'fastparquet==2023.8.0',
+        'joblib==1.2.0'
         # List your dependencies here
         # Example: 'numpy', 'pandas', 'scikit-learn',
     ],
     extras_require={
         'dev': [
-            'pytest>=8.0.1'
+            'pytest==8.0.1',
+            'pylint==3.2.6',
+            'black==24.4.2'
+
         ]
 
     },

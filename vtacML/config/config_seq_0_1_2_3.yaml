@@ -10,6 +10,8 @@ Inputs:
     "MAGCAL_B1",
     "MAGCAL_R2",
     "MAGCAL_B2",
+    "MAGCAL_R3",
+    "MAGCAL_B3",
 
     "MAGERR_R0",
     "MAGERR_B0",
@@ -17,11 +19,15 @@ Inputs:
     "MAGERR_B1",
     "MAGERR_R2",
     "MAGERR_B2",
+    "MAGERR_R3",
+    "MAGERR_B3",
 
     "MAGVAR_R1",
     "MAGVAR_B1",
     "MAGVAR_R2",
     "MAGVAR_B2",
+    "MAGVAR_R3",
+    "MAGVAR_B3",
 
     'EFLAG_R0',
     'EFLAG_B0',
@@ -29,6 +35,8 @@ Inputs:
     'EFLAG_B1',
     'EFLAG_R2',
     'EFLAG_B2',
+    'EFLAG_R3',
+    'EFLAG_B3',
 
     "NEW_SRC",
     "DMAG_CAT"

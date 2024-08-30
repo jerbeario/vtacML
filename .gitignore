@@ -1,23 +1,4 @@
 .DS_Store
-vtacML/output/models/test_model.pkl
-vtacML/output/models/knn_grid_search.pkl
-vtacML/output/models/svc_best_model.pkl
-vtacML/output/models/0.968_ada_best_model.pkl
-vtacML/output/models/0.865_rfc_best_model.pkl
-vtacML/output/models/0.731_test1_best_model.pkl
-vtacML/output/models/knn_best_model.pkl
-vtacML/output/models/rfc_grid_search.pkl
-vtacML/output/models/ada_grid_search.pkl
-vtacML/output/models/ada_best_model.pkl
-vtacML/output/models/0.977_knn_best_model.pkl
-vtacML/output/models/0.842_test2_best_model.pkl
-vtacML/output/models/lr_grid_search.pkl
-vtacML/output/models/svc_grid_search.pkl
-vtacML/output/models/rfc_best_model.pkl
-vtacML/output/models/lr_best_model.pkl
-vtacML/output/models/0.978_svc_best_model.pkl
-vtacML/output/models/0.869_lr_best_model.pkl
-vtacML/output/models/0.967_dt_best_model.pkl
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -47,6 +28,7 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
+build/lib/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template

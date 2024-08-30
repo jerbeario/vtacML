@@ -6,10 +6,22 @@ Inputs:
   columns: [
     "MAGCAL_R0",
     "MAGCAL_B0",
+    "MAGCAL_R1",
+    "MAGCAL_B1",
+
     "MAGERR_R0",
     "MAGERR_B0",
+    "MAGERR_R1",
+    "MAGERR_B1",
+
+    "MAGVAR_R1",
+    "MAGVAR_B1",
+
     'EFLAG_R0',
     'EFLAG_B0',
+    'EFLAG_R1',
+    'EFLAG_B1',
+
     "NEW_SRC",
     "DMAG_CAT"
     ] # features used for training
@@ -52,14 +64,14 @@ Models:
 #      'lr__C': [0.01, 0.1, 1, 10]  # Inverse of regularization strength
 #      'lr__solver': ['newton-cg', 'lbfgs', 'liblinear', 'sag', 'saga']  # Algorithm to use in the optimization problem
 #      'lr__max_iter': [100, 200, 300]  # Maximum number of iterations taken for the solvers to converge
-  dt:
-    class: DecisionTreeClassifier()
-    param_grid:
-      'dt__criterion': ['gini', 'entropy']  # The function to measure the quality of a split
-      'dt__splitter': ['best', 'random']  # The strategy used to choose the split at each node
-      'dt__max_depth': [4, 6, 8, 10]  # Maximum depth of the tree
-      'dt__min_samples_split': [2, 5, 10]  # Minimum number of samples required to split an internal node
-      'dt__min_samples_leaf': [1, 2, 4]  # Minimum number of samples required to be at a leaf node
+#  dt:
+#    class: DecisionTreeClassifier()
+#    param_grid:
+#      'dt__criterion': ['gini', 'entropy']  # The function to measure the quality of a split
+#      'dt__splitter': ['best', 'random']  # The strategy used to choose the split at each node
+#      'dt__max_depth': [4, 6, 8, 10]  # Maximum depth of the tree
+#      'dt__min_samples_split': [2, 5, 10]  # Minimum number of samples required to split an internal node
+#      'dt__min_samples_leaf': [1, 2, 4]  # Minimum number of samples required to be at a leaf node
 
 # Output directories
 Outputs:
