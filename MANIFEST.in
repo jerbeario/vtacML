@@ -2,10 +2,9 @@ include README.md
 include LICENSE
 include vtacML/config/config.yaml
 include vtacML/data/combined_qpo_vt_all_cases_with_GRB_with_flags.parquet
-include vtacML/output/seq_0/0.859_rfc_best_model.pkl
-include vtacML/output/seq_0_1/0.975_rfc_best_model.pkl
-include vtacML/output/seq_0_1_2/0.975_rfc_best_model.pkl
-include vtacML/output/seq_0_1_2/0.978_rfc_best_model.pkl
+include vtacML/output/models/seq_0/0.859_rfc_best_model.pkl
+include vtacML/output/models/seq_0_1/0.975_rfc_best_model.pkl
+include vtacML/output/models/seq_0_1_2/0.975_rfc_best_model.pkl
+include vtacML/output/models/seq_0_1_2_3/0.978_rfc_best_model.pkl
 
 
-exclude vtacML/output/models/

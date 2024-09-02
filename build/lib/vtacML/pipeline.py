@@ -3,6 +3,7 @@ observation as GRBs or not for the VTAC pipeline of the SVOM mission. """
 
 import logging
 import os
+import pathlib
 
 import matplotlib.pyplot as plt
 
@@ -41,7 +42,7 @@ from yellowbrick.classifier import (
 from .preparation import Cleaner
 from .utils import get_path
 
-# from .utils import ROOTDIR
+from .utils import ROOTDIR
 
 # use ROOTDIR/
 
@@ -311,6 +312,14 @@ class VTACMLPipe:
         model_path = get_path(f"{self.config['Outputs']['model_path']}/{model_name}")
         self.best_model = joblib.load(model_path)
         logging.info(f"Loaded {model_path}")
+
+    @staticmethod
+    def display_models():
+        directory = ROOTDIR / 'output/models/'
+        for path in directory.glob('*'):
+            print(str(path).split('/')[-1])
+            for file in path.glob('*.pkl'):
+                print(file)
 
     def evaluate(self, name, plot=False):
         """

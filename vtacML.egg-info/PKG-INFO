@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: vtacML
-Version: 0.1.18
+Version: 0.1.20
 Summary: A machine learning pipeline to classify objects in VTAC dataset as GRB or not.
 Home-page: https://github.com/jerbeario/VTAC_ML
 Author: Jeremy Palmerio
@@ -244,7 +244,7 @@ conda create --name vtacML-dev python=3.8
 
 conda activate vtacML-dev
 
-pip install -r requirements-dev.txt
+pip install -r requirements.txt
 
 ```
 

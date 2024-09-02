@@ -14,4 +14,4 @@ if __name__ == "__main__":
 
     vtac_ml = VTACMLPipe(config_file="config/config_seq_0.yaml")
 
-    vtac_ml.train(save_all_model=True, save_path="output/seq_0/", verbose=10, n_jobs=5)
+    vtac_ml.train(save_all_model=True, save_path="output/models/seq_0/", verbose=10, n_jobs=5)

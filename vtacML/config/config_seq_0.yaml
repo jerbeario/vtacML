@@ -1,4 +1,4 @@
-# Default config file, used to search for best model using only first two sequences (X0, X1) from the VT pipeline
+# Default config file, used to search for best model using only first two sequences (X0) from the VT pipeline
 Inputs:
   file: 'combined_qpo_vt_all_cases_with_GRB_with_flags.parquet' # Data file used for training. Located in /data/
 #  path: 'combined_qpo_vt_with_GRB.parquet'

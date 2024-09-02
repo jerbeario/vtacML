@@ -6,6 +6,7 @@ setup.py
 tests/test_pipeline.py
 vtacML/__init__.py
 vtacML/evaluate_best_model.py
+vtacML/models.py
 vtacML/pipeline.py
 vtacML/predict.py
 vtacML/preparation.py
@@ -18,6 +19,7 @@ vtacML.egg-info/requires.txt
 vtacML.egg-info/top_level.txt
 vtacML/config/config.yaml
 vtacML/data/combined_qpo_vt_all_cases_with_GRB_with_flags.parquet
-vtacML/output/seq_0/0.859_rfc_best_model.pkl
-vtacML/output/seq_0_1/0.975_rfc_best_model.pkl
-vtacML/output/seq_0_1_2/0.975_rfc_best_model.pkl
+vtacML/output/models/seq_0/0.859_rfc_best_model.pkl
+vtacML/output/models/seq_0_1/0.975_rfc_best_model.pkl
+vtacML/output/models/seq_0_1_2/0.975_rfc_best_model.pkl
+vtacML/output/models/seq_0_1_2_3/0.978_rfc_best_model.pkl
