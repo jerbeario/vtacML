@@ -3,7 +3,7 @@ observation as GRBs or not for the VTAC pipeline of the SVOM mission. """
 
 import logging
 import os
-import pathlib
+# import pathlib
 
 import matplotlib.pyplot as plt
 
@@ -80,6 +80,12 @@ def predict_from_best_pipeline(
     vtac_ml_pipe.load_best_model(model_name=model_name)
     print(vtac_ml_pipe.best_model)
     y = vtac_ml_pipe.predict(X, prob=prob_flag)
+
+    grbs_found = sum(y)
+
+    print(f"Found: {grbs_found} GRB candidates out of {len(y)} targets using vtacML. ")
+
+
     return y
 
 
