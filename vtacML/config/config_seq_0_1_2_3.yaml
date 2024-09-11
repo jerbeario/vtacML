@@ -91,8 +91,8 @@ Models:
 
 # Output directories
 Outputs:
-  model_path: '/output/models'
-  viz_path: '/output/visualizations/'
+  model_path: 'output/models/seq_0_1_2_3'
+  viz_path: 'output/visualizations/'
   plot_correlation:
 
     flag: True

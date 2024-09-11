@@ -21,15 +21,15 @@ def test_vtacMLPipe_train():
 def test_vtacMLPipe_save_model():
     vtacML_pipe = VTACMLPipe(config_file='config/test_config.yaml')
     vtacML_pipe.train(cv=2)
-    vtacML_pipe.save_best_model(model_name='test_model.pkl')
+    vtacML_pipe.save_model(model_name='test_model.pkl')
     assert vtacML_pipe.best_model.steps[-1][0] == 'rfc'
 
 def test_vtacMLPipe_load_model():
     vtacML_pipe = VTACMLPipe(config_file='config/test_config.yaml')
-    vtacML_pipe.load_best_model(model_name='test_model.pkl')
+    vtacML_pipe.load_model(model_name='test_model.pkl')
 def test_vtacMLPipe_predict():
     vtacML_pipe = VTACMLPipe(config_file='config/test_config.yaml')
-    vtacML_pipe.load_best_model(model_name='test_model.pkl')
+    vtacML_pipe.load_model(model_name='test_model.pkl')
     test_X = test_df.drop('IS_GRB', axis=1)
     test_y = test_df['IS_GRB']
     pred_y = vtacML_pipe.predict(test_X, prob=False)

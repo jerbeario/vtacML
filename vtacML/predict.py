@@ -9,7 +9,7 @@ if __name__ == "__main__":
         "vtacML/data/combined_qpo_vt_all_cases_with_GRB_with_flags.parquet"
     ).head(1)
 
-    vtac_ml.load_best_model("0.893_rfc_best_model.pkl")
+    vtac_ml.load_model("0.893_rfc_best_model.pkl")
     predictions = vtac_ml.predict(test_data)
     print(predictions)
     print(sum(predictions))

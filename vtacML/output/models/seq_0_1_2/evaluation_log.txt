@@ -1,0 +1,54 @@
+2024-09-08 19:58:02,867 - __main__ - INFO - Evaluating output/models/seq_0_1_2/ models:
+2024-09-08 19:58:03,317 - vtacML.pipeline - INFO - SVC(C=10, degree=4, kernel='poly')
+2024-09-08 19:58:10,542 - vtacML.pipeline - INFO - **************************************************
+2024-09-08 19:58:10,542 - vtacML.pipeline - INFO - Training score:
+2024-09-08 19:58:10,604 - vtacML.pipeline - INFO - MAE: 0.0001 | RMSE: 0.0084 | F1: 0.9895
+2024-09-08 19:58:10,604 - vtacML.pipeline - INFO - Confusion Matrix:
+2024-09-08 19:58:10,604 - vtacML.pipeline - INFO - [[450293      4]
+ [    28   1510]]
+2024-09-08 19:58:10,604 - vtacML.pipeline - INFO - --------------------
+2024-09-08 19:58:10,604 - vtacML.pipeline - INFO - Validation score:
+2024-09-08 19:58:10,619 - vtacML.pipeline - INFO - MAE: 0.0001 | RMSE: 0.0094 | F1: 0.9864
+2024-09-08 19:58:10,619 - vtacML.pipeline - INFO - Confusion Matrix:
+2024-09-08 19:58:10,619 - vtacML.pipeline - INFO - [[112587      1]
+ [     9    362]]
+2024-09-08 19:58:10,955 - vtacML.pipeline - INFO - AdaBoostClassifier(algorithm='SAMME', learning_rate=1, n_estimators=200)
+2024-09-08 19:58:17,313 - vtacML.pipeline - INFO - **************************************************
+2024-09-08 19:58:17,313 - vtacML.pipeline - INFO - Training score:
+2024-09-08 19:58:17,376 - vtacML.pipeline - INFO - MAE: 0.0001 | RMSE: 0.0122 | F1: 0.9781
+2024-09-08 19:58:17,376 - vtacML.pipeline - INFO - Confusion Matrix:
+2024-09-08 19:58:17,376 - vtacML.pipeline - INFO - [[450275     22]
+ [    45   1493]]
+2024-09-08 19:58:17,376 - vtacML.pipeline - INFO - --------------------
+2024-09-08 19:58:17,376 - vtacML.pipeline - INFO - Validation score:
+2024-09-08 19:58:17,391 - vtacML.pipeline - INFO - MAE: 0.0002 | RMSE: 0.0126 | F1: 0.9755
+2024-09-08 19:58:17,391 - vtacML.pipeline - INFO - Confusion Matrix:
+2024-09-08 19:58:17,391 - vtacML.pipeline - INFO - [[112582      6]
+ [    12    359]]
+2024-09-08 19:58:17,871 - vtacML.pipeline - INFO - KNeighborsClassifier(algorithm='ball_tree', n_neighbors=3, weights='distance')
+2024-09-08 22:55:15,795 - vtacML.pipeline - INFO - **************************************************
+2024-09-08 22:55:15,799 - vtacML.pipeline - INFO - Training score:
+2024-09-08 22:55:15,869 - vtacML.pipeline - INFO - MAE: 0.0 | RMSE: 0.0056 | F1: 0.9954
+2024-09-08 22:55:15,869 - vtacML.pipeline - INFO - Confusion Matrix:
+2024-09-08 22:55:15,869 - vtacML.pipeline - INFO - [[450297      0]
+ [    14   1524]]
+2024-09-08 22:55:15,870 - vtacML.pipeline - INFO - --------------------
+2024-09-08 22:55:15,870 - vtacML.pipeline - INFO - Validation score:
+2024-09-08 22:55:15,885 - vtacML.pipeline - INFO - MAE: 0.0001 | RMSE: 0.0099 | F1: 0.985
+2024-09-08 22:55:15,885 - vtacML.pipeline - INFO - Confusion Matrix:
+2024-09-08 22:55:15,885 - vtacML.pipeline - INFO - [[112587      1]
+ [    10    361]]
+2024-09-08 22:55:16,440 - vtacML.pipeline - INFO - RandomForestClassifier(bootstrap=False, max_depth=8, min_samples_leaf=2,
+                       min_samples_split=5)
+2024-09-08 22:55:20,313 - vtacML.pipeline - INFO - **************************************************
+2024-09-08 22:55:20,313 - vtacML.pipeline - INFO - Training score:
+2024-09-08 22:55:20,376 - vtacML.pipeline - INFO - MAE: 0.0001 | RMSE: 0.0095 | F1: 0.9865
+2024-09-08 22:55:20,376 - vtacML.pipeline - INFO - Confusion Matrix:
+2024-09-08 22:55:20,376 - vtacML.pipeline - INFO - [[450297      0]
+ [    41   1497]]
+2024-09-08 22:55:20,376 - vtacML.pipeline - INFO - --------------------
+2024-09-08 22:55:20,376 - vtacML.pipeline - INFO - Validation score:
+2024-09-08 22:55:20,391 - vtacML.pipeline - INFO - MAE: 0.0001 | RMSE: 0.0111 | F1: 0.9808
+2024-09-08 22:55:20,391 - vtacML.pipeline - INFO - Confusion Matrix:
+2024-09-08 22:55:20,391 - vtacML.pipeline - INFO - [[112588      0]
+ [    14    357]]

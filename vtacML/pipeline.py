@@ -76,15 +76,13 @@ def predict_from_best_pipeline(
     """
 
     vtac_ml_pipe = VTACMLPipe(config_file=config_path)
-    print(model_name)
-    vtac_ml_pipe.load_best_model(model_name=model_name)
-    print(vtac_ml_pipe.best_model)
+    vtac_ml_pipe.load_model(model_name=model_name)
+    log.info(vtac_ml_pipe.best_model)
     y = vtac_ml_pipe.predict(X, prob=prob_flag)
 
     grbs_found = sum(y)
 
-    print(f"Found: {grbs_found} GRB candidates out of {len(y)} targets using vtacML. ")
-
+    log.info(f"Found: {grbs_found} GRB candidates out of {len(y)} targets using vtacML. ")
 
     return y
 
@@ -124,7 +122,6 @@ class VTACMLPipe:
         self.preprocessing = Pipeline(steps=[], verbose=True)
         self.full_pipeline = Pipeline(steps=[], verbose=True)
         self.models = {}
-        self.cv_results = {}
         self.best_model = None
         self.y_predict = None
 
@@ -235,13 +232,13 @@ class VTACMLPipe:
 
             param_grid = self.config["Models"][name]["param_grid"]
 
-            log.info("Model: {}".format(name))
+            log.debug("Model: {}".format(name))
 
             self.full_pipeline = Pipeline(
                 steps=self.preprocessing.steps.copy(), verbose=False
             )
             self.full_pipeline.steps.append((name, model))
-            log.info(self.full_pipeline.steps)
+            log.debug(self.full_pipeline.steps)
 
             # model fitting
             grid_search = GridSearchCV(
@@ -255,8 +252,6 @@ class VTACMLPipe:
             )
             grid_search.fit(self.X_train, self.y_train)
             # grid_search.fit(self.X_train, self.y_train)
-            self.cv_results[name] = grid_search.cv_results_
-            print(self.cv_results[name])
 
             model_filename = (
                 f"{round(grid_search.best_score_, 3)}_{name}_best_model.pkl"
@@ -278,7 +273,7 @@ class VTACMLPipe:
 
         # self.save_best_model(model_path=model_path)
 
-    def save_best_model(self, model_name="best_model", model_path=None):
+    def save_model(self, model_name="best_model", model_path=None):
         """
         Saves best model from training to the specified path in the config file. Optionally change name and/or path
         of the model.
@@ -297,14 +292,12 @@ class VTACMLPipe:
                 f"{self.config['Outputs']['model_path']}/{model_name}"
             )
         else:
-            print(model_path)
             model_path = get_path(model_path)
-            print(model_path)
 
         joblib.dump(self.best_model, model_path)
-        logging.info(f"Saved model to {model_path}")
+        log.debug(f"Saved model to {model_path}")
 
-    def load_best_model(self, model_name):
+    def load_model(self, model_name):
         """
         Loads 'model_name' into current pipeline.
 
@@ -317,7 +310,7 @@ class VTACMLPipe:
         """
         model_path = get_path(f"{self.config['Outputs']['model_path']}/{model_name}")
         self.best_model = joblib.load(model_path)
-        logging.info(f"Loaded {model_path}")
+        log.debug(f"Loaded {model_path}")
 
     @staticmethod
     def display_models():
@@ -327,9 +320,10 @@ class VTACMLPipe:
         """
         directory = ROOTDIR / 'output/models/'
         for path in directory.glob('*'):
-            print(str(path).split('/')[-1])
+            log.info(str(path).split('/')[-1])
             for file in path.glob('*.pkl'):
-                print(file)
+                log.info(file)
+
 
     def evaluate(self, name, plot=False):
         """
@@ -341,83 +335,77 @@ class VTACMLPipe:
             The name for the evaluation output.
         plot : bool, optional
             If True, generates and saves evaluation plots, by default False.
-        """
-        viz_path = self.config["Outputs"]["viz_path"]
-        output_path = get_path(f"{viz_path}/{name}")
 
-        print(self.best_model.steps)
-        if not os.path.exists(output_path):
-            os.makedirs(output_path)
-            print(f"Folder '{output_path}' created.")
-        else:
-            print(f"Folder '{output_path}' already exists.")
-        # INCLUDE case in titles
-        # model scoring
-        #
-        # if self.best_model.steps[-1][0] == 'knn' and plot:
-        #     print('plotting')
-        #     self.preprocessing.fit(self.X)
-        #     X = pd.DataFrame(self.preprocessing.transform(self.X))
-        #     self.plot_knn_neighbors(knn=self.best_model.steps[-1][1], X=X, y=self.y, features=self.X_columns)
-        #     print('done plotting')
-        # else:
-        print(self.best_model.steps[-1][1])
+        """
+        log.debug(f"Model: {self.best_model.steps}")
+
+        log.info(self.best_model.steps[-1][1])
 
         # Evaluate model performance
         self._print_model_eval()
 
+
         if plot:
+            viz_path = self.config["Outputs"]["viz_path"]
+            output_path = get_path(f"{viz_path}/{name}")
+            log.debug(f"Output path: {output_path}")
 
-            _, ax_report = plt.subplots()
+            if not os.path.exists(output_path):
+                os.makedirs(output_path)
+                log.debug(f"Folder '{output_path}' created.")
+            else:
+                log.debug(f"Folder '{output_path}' already exists.")
 
-            report_viz = ClassificationReport(
-                self.best_model,
-                classes=["NOT_GRB", "IS_GRB"],
-                support=True,
-                ax=ax_report,
-            )
-            report_viz.fit(
-                self.X_train, self.y_train
-            )  # Fit the visualizer and the model
-            report_viz.score(
-                self.X_test, self.y_test
-            )  # Evaluate the model on the test data
-            report_viz.show(outpath=output_path + "/classification_report.pdf")
-
-            _, ax_cm_test = plt.subplots()
-
-            cm_test_viz = ConfusionMatrix(
-                self.best_model,
-                classes=["NOT_GRB", "IS_GRB"],
-                percent=True,
-                axes=ax_cm_test,
-            )
-            cm_test_viz.fit(self.X_train, self.y_train)
-            cm_test_viz.score(self.X_test, self.y_test)
-            cm_test_viz.show(outpath=output_path + "/confusion_matrix_test.pdf")
-
-            _, ax_cm_train = plt.subplots()
-
-            cm_train_viz = ConfusionMatrix(
-                self.best_model,
-                classes=["NOT_GRB", "IS_GRB"],
-                percent=True,
-                ax=ax_cm_train,
-            )
-            cm_train_viz.fit(self.X_train, self.y_train)
-            cm_train_viz.score(self.X_train, self.y_train)
-            cm_train_viz.show(outpath=output_path + "/confusion_matrix_train.pdf")
-
-            _, ax_roc = plt.subplots()
-
-            roc_viz = ROCAUC(self.best_model, classes=["NOT_GRB", "IS_GRB"], ax=ax_roc)
-            roc_viz.fit(
-                self.X_train, self.y_train
-            )  # Fit the training data to the visualizer
-            roc_viz.score(
-                self.X_test, self.y_test
-            )  # Evaluate the model on the test data
-            roc_viz.show(outpath=output_path + "/ROC_AUC.pdf")
+            # _, ax_report = plt.subplots()
+            #
+            # report_viz = ClassificationReport(
+            #     self.best_model,
+            #     classes=["NOT_GRB", "IS_GRB"],
+            #     support=True,
+            #     ax=ax_report,
+            # )
+            # report_viz.fit(
+            #     self.X_train, self.y_train
+            # )  # Fit the visualizer and the model
+            # report_viz.score(
+            #     self.X_test, self.y_test
+            # )  # Evaluate the model on the test data
+            # report_viz.show(outpath=output_path + "/classification_report.pdf")
+            #
+            # _, ax_cm_test = plt.subplots()
+            #
+            # cm_test_viz = ConfusionMatrix(
+            #     self.best_model,
+            #     classes=["NOT_GRB", "IS_GRB"],
+            #     percent=True,
+            #     axes=ax_cm_test,
+            # )
+            # cm_test_viz.fit(self.X_train, self.y_train)
+            # cm_test_viz.score(self.X_test, self.y_test)
+            # cm_test_viz.show(outpath=output_path + "/confusion_matrix_test.pdf")
+            #
+            # _, ax_cm_train = plt.subplots()
+            #
+            # cm_train_viz = ConfusionMatrix(
+            #     self.best_model,
+            #     classes=["NOT_GRB", "IS_GRB"],
+            #     percent=True,
+            #     ax=ax_cm_train,
+            # )
+            # cm_train_viz.fit(self.X_train, self.y_train)
+            # cm_train_viz.score(self.X_train, self.y_train)
+            # cm_train_viz.show(outpath=output_path + "/confusion_matrix_train.pdf")
+            #
+            # _, ax_roc = plt.subplots()
+            #
+            # roc_viz = ROCAUC(self.best_model, classes=["NOT_GRB", "IS_GRB"], ax=ax_roc)
+            # roc_viz.fit(
+            #     self.X_train, self.y_train
+            # )  # Fit the training data to the visualizer
+            # roc_viz.score(
+            #     self.X_test, self.y_test
+            # )  # Evaluate the model on the test data
+            # roc_viz.show(outpath=output_path + "/ROC_AUC.pdf")
 
             _, ax_pr_curve = plt.subplots()
 
@@ -490,7 +478,7 @@ class VTACMLPipe:
             The loaded data.
         """
         data_path = get_path(f"/data/{data_file}")
-        print(data_path)
+        # print(data_path)
         data = pd.read_parquet(data_path, engine="fastparquet")
         return data
 
@@ -599,24 +587,24 @@ class VTACMLPipe:
 
         train_conf_matrix = confusion_matrix(self.y_train, train_pred)
         test_conf_matrix = confusion_matrix(self.y_test, test_pred)
-        print("*" * 50)
-        print("Training score:")
-        print(
+        log.info("*" * 50)
+        log.info("Training score:")
+        log.info(
             f"MAE: {round(mean_absolute_error(self.y_train, train_pred), 4)} "
             f"| RMSE: {round(mean_squared_error(self.y_train, train_pred, squared=False), 4)} "
             f"| F1: {round(f1_score(self.y_train, train_pred), 4)}"
         )
-        print("Confusion Matrix:")
-        print(train_conf_matrix)
-        print("-" * 20)
-        print("Validation score:")
-        print(
+        log.info("Confusion Matrix:")
+        log.info(train_conf_matrix)
+        log.info("-" * 20)
+        log.info("Validation score:")
+        log.info(
             f"MAE: {round(mean_absolute_error(self.y_test, test_pred), 4)} "
             f"| RMSE: {round(mean_squared_error(self.y_test, test_pred, squared=False), 4)} "
             f"| F1: {round(f1_score(self.y_test, test_pred), 4)}"
         )
-        print("Confusion Matrix:")
-        print(test_conf_matrix)
+        log.info("Confusion Matrix:")
+        log.info(test_conf_matrix)
 
 
 # def hyperparameter_valid_curve(self, outpath):

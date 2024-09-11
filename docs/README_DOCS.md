@@ -76,7 +76,7 @@ pipeline = VTACMLPipe(config_file='path/to/config.yaml')
 pipeline.train()
 
 # Save the best model
-pipeline.save_best_model('path/to/save/best_model.pkl')
+pipeline.save_model('path/to/save/best_model.pkl')
 ```
 
 ### Loading and Using the Best Model
@@ -90,7 +90,7 @@ from vtacML.pipeline import VTACMLPipe
 pipeline = VTACMLPipe()
 
 # Load the best model
-pipeline.load_best_model('path/to/save/best_model.pkl')
+pipeline.load_model('path/to/save/best_model.pkl')
 
 # Predict GRB candidates
 predictions = pipeline.predict(observation_dataframe, prob=True)
