@@ -49,6 +49,12 @@ SVOM mission.</p>
 </dd>
 </dl>
 <dl class="py method">
+<dt class="sig sig-object py" id="vtacML.pipeline.VTACMLPipe.display_models">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">display_models</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/vtacML/pipeline.html#VTACMLPipe.display_models"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vtacML.pipeline.VTACMLPipe.display_models" title="Link to this definition">¶</a></dt>
+<dd><p>Displays available models in the output directory.</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="vtacML.pipeline.VTACMLPipe.evaluate">
 <span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/vtacML/pipeline.html#VTACMLPipe.evaluate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vtacML.pipeline.VTACMLPipe.evaluate" title="Link to this definition">¶</a></dt>
 <dd><p>Evaluate the best model with various metrics and visualization.</p>
@@ -63,23 +69,23 @@ SVOM mission.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="vtacML.pipeline.VTACMLPipe.load_best_model">
-<span class="sig-name descname"><span class="pre">load_best_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/vtacML/pipeline.html#VTACMLPipe.load_best_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vtacML.pipeline.VTACMLPipe.load_best_model" title="Link to this definition">¶</a></dt>
-<dd><p>Loads ‘model_name’ into current pipeline.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>model_name</strong> (<em>str</em>) – The name of the model from the Outputs/models/ directory to be loaded.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="vtacML.pipeline.VTACMLPipe.load_config">
 <span class="sig-name descname"><span class="pre">load_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/vtacML/pipeline.html#VTACMLPipe.load_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vtacML.pipeline.VTACMLPipe.load_config" title="Link to this definition">¶</a></dt>
 <dd><p>Load the configuration file and prepare the data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>config_file</strong> (<em>str</em>) – The path to the configuration file.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vtacML.pipeline.VTACMLPipe.load_model">
+<span class="sig-name descname"><span class="pre">load_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/vtacML/pipeline.html#VTACMLPipe.load_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vtacML.pipeline.VTACMLPipe.load_model" title="Link to this definition">¶</a></dt>
+<dd><p>Loads ‘model_name’ into current pipeline.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>model_name</strong> (<em>str</em>) – The name of the model from the Outputs/models/ directory to be loaded.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -105,8 +111,8 @@ SVOM mission.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="vtacML.pipeline.VTACMLPipe.save_best_model">
-<span class="sig-name descname"><span class="pre">save_best_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'best_model'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/vtacML/pipeline.html#VTACMLPipe.save_best_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vtacML.pipeline.VTACMLPipe.save_best_model" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="vtacML.pipeline.VTACMLPipe.save_model">
+<span class="sig-name descname"><span class="pre">save_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'best_model'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/vtacML/pipeline.html#VTACMLPipe.save_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vtacML.pipeline.VTACMLPipe.save_model" title="Link to this definition">¶</a></dt>
 <dd><p>Saves best model from training to the specified path in the config file. Optionally change name and/or path
 of the model.</p>
 <dl class="field-list simple">

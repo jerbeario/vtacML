@@ -35,6 +35,7 @@
 
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">os</span>
+<span class="c1"># import pathlib</span>
 
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
@@ -73,7 +74,7 @@
 <span class="kn">from</span> <span class="nn">.preparation</span> <span class="kn">import</span> <span class="n">Cleaner</span>
 <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">get_path</span>
 
-<span class="c1"># from .utils import ROOTDIR</span>
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">ROOTDIR</span>
 
 <span class="c1"># use ROOTDIR/</span>
 
@@ -109,10 +110,14 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">vtac_ml_pipe</span> <span class="o">=</span> <span class="n">VTACMLPipe</span><span class="p">(</span><span class="n">config_file</span><span class="o">=</span><span class="n">config_path</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">model_name</span><span class="p">)</span>
-    <span class="n">vtac_ml_pipe</span><span class="o">.</span><span class="n">load_best_model</span><span class="p">(</span><span class="n">model_name</span><span class="o">=</span><span class="n">model_name</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">vtac_ml_pipe</span><span class="o">.</span><span class="n">best_model</span><span class="p">)</span>
+    <span class="n">vtac_ml_pipe</span><span class="o">.</span><span class="n">load_model</span><span class="p">(</span><span class="n">model_name</span><span class="o">=</span><span class="n">model_name</span><span class="p">)</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">vtac_ml_pipe</span><span class="o">.</span><span class="n">best_model</span><span class="p">)</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">vtac_ml_pipe</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">prob</span><span class="o">=</span><span class="n">prob_flag</span><span class="p">)</span>
+
+    <span class="n">grbs_found</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found: </span><span class="si">{</span><span class="n">grbs_found</span><span class="si">}</span><span class="s2"> GRB candidates out of </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="si">}</span><span class="s2"> targets using vtacML. &quot;</span><span class="p">)</span>
+
     <span class="k">return</span> <span class="n">y</span></div>
 
 
@@ -154,7 +159,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">preprocessing</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="p">[],</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">full_pipeline</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="p">[],</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">models</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cv_results</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">best_model</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">y_predict</span> <span class="o">=</span> <span class="kc">None</span>
 
@@ -270,13 +274,13 @@
 
             <span class="n">param_grid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;Models&quot;</span><span class="p">][</span><span class="n">name</span><span class="p">][</span><span class="s2">&quot;param_grid&quot;</span><span class="p">]</span>
 
-            <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Model: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Model: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">full_pipeline</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span>
                 <span class="n">steps</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">steps</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span>
             <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">full_pipeline</span><span class="o">.</span><span class="n">steps</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">name</span><span class="p">,</span> <span class="n">model</span><span class="p">))</span>
-            <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">full_pipeline</span><span class="o">.</span><span class="n">steps</span><span class="p">)</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">full_pipeline</span><span class="o">.</span><span class="n">steps</span><span class="p">)</span>
 
             <span class="c1"># model fitting</span>
             <span class="n">grid_search</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span>
@@ -290,8 +294,6 @@
             <span class="p">)</span>
             <span class="n">grid_search</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X_train</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_train</span><span class="p">)</span>
             <span class="c1"># grid_search.fit(self.X_train, self.y_train)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">cv_results</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">grid_search</span><span class="o">.</span><span class="n">cv_results_</span>
-            <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cv_results</span><span class="p">[</span><span class="n">name</span><span class="p">])</span>
 
             <span class="n">model_filename</span> <span class="o">=</span> <span class="p">(</span>
                 <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">grid_search</span><span class="o">.</span><span class="n">best_score_</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">_best_model.pkl&quot;</span>
@@ -314,9 +316,9 @@
 
         <span class="c1"># self.save_best_model(model_path=model_path)</span>
 
-<div class="viewcode-block" id="VTACMLPipe.save_best_model">
-<a class="viewcode-back" href="../../modules.html#vtacML.pipeline.VTACMLPipe.save_best_model">[docs]</a>
-    <span class="k">def</span> <span class="nf">save_best_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_name</span><span class="o">=</span><span class="s2">&quot;best_model&quot;</span><span class="p">,</span> <span class="n">model_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="VTACMLPipe.save_model">
+<a class="viewcode-back" href="../../modules.html#vtacML.pipeline.VTACMLPipe.save_model">[docs]</a>
+    <span class="k">def</span> <span class="nf">save_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_name</span><span class="o">=</span><span class="s2">&quot;best_model&quot;</span><span class="p">,</span> <span class="n">model_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Saves best model from training to the specified path in the config file. Optionally change name and/or path</span>
 <span class="sd">        of the model.</span>
@@ -335,17 +337,15 @@
                 <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;Outputs&#39;</span><span class="p">][</span><span class="s1">&#39;model_path&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="s2">&quot;</span>
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">model_path</span><span class="p">)</span>
             <span class="n">model_path</span> <span class="o">=</span> <span class="n">get_path</span><span class="p">(</span><span class="n">model_path</span><span class="p">)</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">model_path</span><span class="p">)</span>
 
         <span class="n">joblib</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">best_model</span><span class="p">,</span> <span class="n">model_path</span><span class="p">)</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Saved model to </span><span class="si">{</span><span class="n">model_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Saved model to </span><span class="si">{</span><span class="n">model_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="VTACMLPipe.load_best_model">
-<a class="viewcode-back" href="../../modules.html#vtacML.pipeline.VTACMLPipe.load_best_model">[docs]</a>
-    <span class="k">def</span> <span class="nf">load_best_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_name</span><span class="p">):</span>
+<div class="viewcode-block" id="VTACMLPipe.load_model">
+<a class="viewcode-back" href="../../modules.html#vtacML.pipeline.VTACMLPipe.load_model">[docs]</a>
+    <span class="k">def</span> <span class="nf">load_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_name</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Loads &#39;model_name&#39; into current pipeline.</span>
 
@@ -358,7 +358,23 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">model_path</span> <span class="o">=</span> <span class="n">get_path</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;Outputs&#39;</span><span class="p">][</span><span class="s1">&#39;model_path&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">best_model</span> <span class="o">=</span> <span class="n">joblib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_path</span><span class="p">)</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loaded </span><span class="si">{</span><span class="n">model_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loaded </span><span class="si">{</span><span class="n">model_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="VTACMLPipe.display_models">
+<a class="viewcode-back" href="../../modules.html#vtacML.pipeline.VTACMLPipe.display_models">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">display_models</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Displays available models in the output directory.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">directory</span> <span class="o">=</span> <span class="n">ROOTDIR</span> <span class="o">/</span> <span class="s1">&#39;output/models/&#39;</span>
+        <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">directory</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;*&#39;</span><span class="p">):</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">path</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;*.pkl&#39;</span><span class="p">):</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">file</span><span class="p">)</span></div>
+
 
 
 <div class="viewcode-block" id="VTACMLPipe.evaluate">
@@ -373,83 +389,77 @@
 <span class="sd">            The name for the evaluation output.</span>
 <span class="sd">        plot : bool, optional</span>
 <span class="sd">            If True, generates and saves evaluation plots, by default False.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">viz_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;Outputs&quot;</span><span class="p">][</span><span class="s2">&quot;viz_path&quot;</span><span class="p">]</span>
-        <span class="n">output_path</span> <span class="o">=</span> <span class="n">get_path</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">viz_path</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">best_model</span><span class="o">.</span><span class="n">steps</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">output_path</span><span class="p">):</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">output_path</span><span class="p">)</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Folder &#39;</span><span class="si">{</span><span class="n">output_path</span><span class="si">}</span><span class="s2">&#39; created.&quot;</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Folder &#39;</span><span class="si">{</span><span class="n">output_path</span><span class="si">}</span><span class="s2">&#39; already exists.&quot;</span><span class="p">)</span>
-        <span class="c1"># INCLUDE case in titles</span>
-        <span class="c1"># model scoring</span>
-        <span class="c1">#</span>
-        <span class="c1"># if self.best_model.steps[-1][0] == &#39;knn&#39; and plot:</span>
-        <span class="c1">#     print(&#39;plotting&#39;)</span>
-        <span class="c1">#     self.preprocessing.fit(self.X)</span>
-        <span class="c1">#     X = pd.DataFrame(self.preprocessing.transform(self.X))</span>
-        <span class="c1">#     self.plot_knn_neighbors(knn=self.best_model.steps[-1][1], X=X, y=self.y, features=self.X_columns)</span>
-        <span class="c1">#     print(&#39;done plotting&#39;)</span>
-        <span class="c1"># else:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">best_model</span><span class="o">.</span><span class="n">steps</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Model: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">best_model</span><span class="o">.</span><span class="n">steps</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">best_model</span><span class="o">.</span><span class="n">steps</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
 
         <span class="c1"># Evaluate model performance</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_print_model_eval</span><span class="p">()</span>
 
+
         <span class="k">if</span> <span class="n">plot</span><span class="p">:</span>
+            <span class="n">viz_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;Outputs&quot;</span><span class="p">][</span><span class="s2">&quot;viz_path&quot;</span><span class="p">]</span>
+            <span class="n">output_path</span> <span class="o">=</span> <span class="n">get_path</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">viz_path</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Output path: </span><span class="si">{</span><span class="n">output_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-            <span class="n">_</span><span class="p">,</span> <span class="n">ax_report</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">output_path</span><span class="p">):</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">output_path</span><span class="p">)</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Folder &#39;</span><span class="si">{</span><span class="n">output_path</span><span class="si">}</span><span class="s2">&#39; created.&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Folder &#39;</span><span class="si">{</span><span class="n">output_path</span><span class="si">}</span><span class="s2">&#39; already exists.&quot;</span><span class="p">)</span>
 
-            <span class="n">report_viz</span> <span class="o">=</span> <span class="n">ClassificationReport</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">best_model</span><span class="p">,</span>
-                <span class="n">classes</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;NOT_GRB&quot;</span><span class="p">,</span> <span class="s2">&quot;IS_GRB&quot;</span><span class="p">],</span>
-                <span class="n">support</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="n">ax</span><span class="o">=</span><span class="n">ax_report</span><span class="p">,</span>
-            <span class="p">)</span>
-            <span class="n">report_viz</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">X_train</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_train</span>
-            <span class="p">)</span>  <span class="c1"># Fit the visualizer and the model</span>
-            <span class="n">report_viz</span><span class="o">.</span><span class="n">score</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">X_test</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_test</span>
-            <span class="p">)</span>  <span class="c1"># Evaluate the model on the test data</span>
-            <span class="n">report_viz</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">outpath</span><span class="o">=</span><span class="n">output_path</span> <span class="o">+</span> <span class="s2">&quot;/classification_report.pdf&quot;</span><span class="p">)</span>
-
-            <span class="n">_</span><span class="p">,</span> <span class="n">ax_cm_test</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-
-            <span class="n">cm_test_viz</span> <span class="o">=</span> <span class="n">ConfusionMatrix</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">best_model</span><span class="p">,</span>
-                <span class="n">classes</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;NOT_GRB&quot;</span><span class="p">,</span> <span class="s2">&quot;IS_GRB&quot;</span><span class="p">],</span>
-                <span class="n">percent</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="n">axes</span><span class="o">=</span><span class="n">ax_cm_test</span><span class="p">,</span>
-            <span class="p">)</span>
-            <span class="n">cm_test_viz</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X_train</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_train</span><span class="p">)</span>
-            <span class="n">cm_test_viz</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X_test</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_test</span><span class="p">)</span>
-            <span class="n">cm_test_viz</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">outpath</span><span class="o">=</span><span class="n">output_path</span> <span class="o">+</span> <span class="s2">&quot;/confusion_matrix_test.pdf&quot;</span><span class="p">)</span>
-
-            <span class="n">_</span><span class="p">,</span> <span class="n">ax_cm_train</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-
-            <span class="n">cm_train_viz</span> <span class="o">=</span> <span class="n">ConfusionMatrix</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">best_model</span><span class="p">,</span>
-                <span class="n">classes</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;NOT_GRB&quot;</span><span class="p">,</span> <span class="s2">&quot;IS_GRB&quot;</span><span class="p">],</span>
-                <span class="n">percent</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="n">ax</span><span class="o">=</span><span class="n">ax_cm_train</span><span class="p">,</span>
-            <span class="p">)</span>
-            <span class="n">cm_train_viz</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X_train</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_train</span><span class="p">)</span>
-            <span class="n">cm_train_viz</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X_train</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_train</span><span class="p">)</span>
-            <span class="n">cm_train_viz</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">outpath</span><span class="o">=</span><span class="n">output_path</span> <span class="o">+</span> <span class="s2">&quot;/confusion_matrix_train.pdf&quot;</span><span class="p">)</span>
-
-            <span class="n">_</span><span class="p">,</span> <span class="n">ax_roc</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-
-            <span class="n">roc_viz</span> <span class="o">=</span> <span class="n">ROCAUC</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">best_model</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;NOT_GRB&quot;</span><span class="p">,</span> <span class="s2">&quot;IS_GRB&quot;</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax_roc</span><span class="p">)</span>
-            <span class="n">roc_viz</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">X_train</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_train</span>
-            <span class="p">)</span>  <span class="c1"># Fit the training data to the visualizer</span>
-            <span class="n">roc_viz</span><span class="o">.</span><span class="n">score</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">X_test</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_test</span>
-            <span class="p">)</span>  <span class="c1"># Evaluate the model on the test data</span>
-            <span class="n">roc_viz</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">outpath</span><span class="o">=</span><span class="n">output_path</span> <span class="o">+</span> <span class="s2">&quot;/ROC_AUC.pdf&quot;</span><span class="p">)</span>
+            <span class="c1"># _, ax_report = plt.subplots()</span>
+            <span class="c1">#</span>
+            <span class="c1"># report_viz = ClassificationReport(</span>
+            <span class="c1">#     self.best_model,</span>
+            <span class="c1">#     classes=[&quot;NOT_GRB&quot;, &quot;IS_GRB&quot;],</span>
+            <span class="c1">#     support=True,</span>
+            <span class="c1">#     ax=ax_report,</span>
+            <span class="c1"># )</span>
+            <span class="c1"># report_viz.fit(</span>
+            <span class="c1">#     self.X_train, self.y_train</span>
+            <span class="c1"># )  # Fit the visualizer and the model</span>
+            <span class="c1"># report_viz.score(</span>
+            <span class="c1">#     self.X_test, self.y_test</span>
+            <span class="c1"># )  # Evaluate the model on the test data</span>
+            <span class="c1"># report_viz.show(outpath=output_path + &quot;/classification_report.pdf&quot;)</span>
+            <span class="c1">#</span>
+            <span class="c1"># _, ax_cm_test = plt.subplots()</span>
+            <span class="c1">#</span>
+            <span class="c1"># cm_test_viz = ConfusionMatrix(</span>
+            <span class="c1">#     self.best_model,</span>
+            <span class="c1">#     classes=[&quot;NOT_GRB&quot;, &quot;IS_GRB&quot;],</span>
+            <span class="c1">#     percent=True,</span>
+            <span class="c1">#     axes=ax_cm_test,</span>
+            <span class="c1"># )</span>
+            <span class="c1"># cm_test_viz.fit(self.X_train, self.y_train)</span>
+            <span class="c1"># cm_test_viz.score(self.X_test, self.y_test)</span>
+            <span class="c1"># cm_test_viz.show(outpath=output_path + &quot;/confusion_matrix_test.pdf&quot;)</span>
+            <span class="c1">#</span>
+            <span class="c1"># _, ax_cm_train = plt.subplots()</span>
+            <span class="c1">#</span>
+            <span class="c1"># cm_train_viz = ConfusionMatrix(</span>
+            <span class="c1">#     self.best_model,</span>
+            <span class="c1">#     classes=[&quot;NOT_GRB&quot;, &quot;IS_GRB&quot;],</span>
+            <span class="c1">#     percent=True,</span>
+            <span class="c1">#     ax=ax_cm_train,</span>
+            <span class="c1"># )</span>
+            <span class="c1"># cm_train_viz.fit(self.X_train, self.y_train)</span>
+            <span class="c1"># cm_train_viz.score(self.X_train, self.y_train)</span>
+            <span class="c1"># cm_train_viz.show(outpath=output_path + &quot;/confusion_matrix_train.pdf&quot;)</span>
+            <span class="c1">#</span>
+            <span class="c1"># _, ax_roc = plt.subplots()</span>
+            <span class="c1">#</span>
+            <span class="c1"># roc_viz = ROCAUC(self.best_model, classes=[&quot;NOT_GRB&quot;, &quot;IS_GRB&quot;], ax=ax_roc)</span>
+            <span class="c1"># roc_viz.fit(</span>
+            <span class="c1">#     self.X_train, self.y_train</span>
+            <span class="c1"># )  # Fit the training data to the visualizer</span>
+            <span class="c1"># roc_viz.score(</span>
+            <span class="c1">#     self.X_test, self.y_test</span>
+            <span class="c1"># )  # Evaluate the model on the test data</span>
+            <span class="c1"># roc_viz.show(outpath=output_path + &quot;/ROC_AUC.pdf&quot;)</span>
 
             <span class="n">_</span><span class="p">,</span> <span class="n">ax_pr_curve</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 
@@ -526,7 +536,7 @@
 <span class="sd">            The loaded data.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">data_path</span> <span class="o">=</span> <span class="n">get_path</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;/data/</span><span class="si">{</span><span class="n">data_file</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">data_path</span><span class="p">)</span>
+        <span class="c1"># print(data_path)</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;fastparquet&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">data</span>
 
@@ -635,24 +645,24 @@
 
         <span class="n">train_conf_matrix</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y_train</span><span class="p">,</span> <span class="n">train_pred</span><span class="p">)</span>
         <span class="n">test_conf_matrix</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y_test</span><span class="p">,</span> <span class="n">test_pred</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;*&quot;</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Training score:&quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;*&quot;</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Training score:&quot;</span><span class="p">)</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
             <span class="sa">f</span><span class="s2">&quot;MAE: </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">mean_absolute_error</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y_train</span><span class="p">,</span><span class="w"> </span><span class="n">train_pred</span><span class="p">),</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="si">}</span><span class="s2"> &quot;</span>
             <span class="sa">f</span><span class="s2">&quot;| RMSE: </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y_train</span><span class="p">,</span><span class="w"> </span><span class="n">train_pred</span><span class="p">,</span><span class="w"> </span><span class="n">squared</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="si">}</span><span class="s2"> &quot;</span>
             <span class="sa">f</span><span class="s2">&quot;| F1: </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">f1_score</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y_train</span><span class="p">,</span><span class="w"> </span><span class="n">train_pred</span><span class="p">),</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Confusion Matrix:&quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">train_conf_matrix</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">20</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Validation score:&quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Confusion Matrix:&quot;</span><span class="p">)</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">train_conf_matrix</span><span class="p">)</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">20</span><span class="p">)</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Validation score:&quot;</span><span class="p">)</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
             <span class="sa">f</span><span class="s2">&quot;MAE: </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">mean_absolute_error</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y_test</span><span class="p">,</span><span class="w"> </span><span class="n">test_pred</span><span class="p">),</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="si">}</span><span class="s2"> &quot;</span>
             <span class="sa">f</span><span class="s2">&quot;| RMSE: </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y_test</span><span class="p">,</span><span class="w"> </span><span class="n">test_pred</span><span class="p">,</span><span class="w"> </span><span class="n">squared</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="si">}</span><span class="s2"> &quot;</span>
             <span class="sa">f</span><span class="s2">&quot;| F1: </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">f1_score</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y_test</span><span class="p">,</span><span class="w"> </span><span class="n">test_pred</span><span class="p">),</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Confusion Matrix:&quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">test_conf_matrix</span><span class="p">)</span></div>
+        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Confusion Matrix:&quot;</span><span class="p">)</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">test_conf_matrix</span><span class="p">)</span></div>
 
 
 
