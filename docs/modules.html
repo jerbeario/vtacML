@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Docs vtacML &#8212; vtacML  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=61cd365c" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=12dfc556" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Welcome to vtacML’s homepage!" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="docs-vtacml">
+<h1>Docs vtacML<a class="headerlink" href="#docs-vtacml" title="Link to this heading">¶</a></h1>
+<section id="module-vtacML.pipeline">
+<span id="pipeline"></span><h2>Pipeline<a class="headerlink" href="#module-vtacML.pipeline" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="vtacML.pipeline.VTACMLPipe">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">vtacML.pipeline.</span></span><span class="sig-name descname"><span class="pre">VTACMLPipe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'config/config.yaml'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/vtacML/pipeline.html#VTACMLPipe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vtacML.pipeline.VTACMLPipe" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A machine learning pipeline for training and evaluating an optimal model for optical identification of GRBs for the SVOM mission.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config_path</strong> (<em>str</em><em>, </em><em>optional</em>) – Path to the configuration file. Default ‘config/config.yaml’</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="vtacML.pipeline.VTACMLPipe.evaluate">
+<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">score=&lt;function</span> <span class="pre">f1_score&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/vtacML/pipeline.html#VTACMLPipe.evaluate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vtacML.pipeline.VTACMLPipe.evaluate" title="Link to this definition">¶</a></dt>
+<dd><p>Evaluate the best model with various metrics and visualization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – The name for the evaluation output.</p></li>
+<li><p><strong>plot</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, generates and saves evaluation plots, by default False.</p></li>
+<li><p><strong>score</strong> (<em>callable</em><em>, </em><em>optional</em>) – The scoring function to use for evaluation, by default f1_score.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vtacML.pipeline.VTACMLPipe.load_best_model">
+<span class="sig-name descname"><span class="pre">load_best_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/vtacML/pipeline.html#VTACMLPipe.load_best_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vtacML.pipeline.VTACMLPipe.load_best_model" title="Link to this definition">¶</a></dt>
+<dd><p>Loads ‘model_name’ into current pipeline.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>model_name</strong> (<em>str</em>) – The name of the model from the Outputs/models/ directory to be loaded.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vtacML.pipeline.VTACMLPipe.load_config">
+<span class="sig-name descname"><span class="pre">load_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/vtacML/pipeline.html#VTACMLPipe.load_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vtacML.pipeline.VTACMLPipe.load_config" title="Link to this definition">¶</a></dt>
+<dd><p>Load the configuration file and prepare the data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config_file</strong> (<em>str</em>) – The path to the configuration file.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vtacML.pipeline.VTACMLPipe.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prob</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/vtacML/pipeline.html#VTACMLPipe.predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vtacML.pipeline.VTACMLPipe.predict" title="Link to this definition">¶</a></dt>
+<dd><p>Predict using the best model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>DataFrame</em>) – The input features for prediction.</p></li>
+<li><p><strong>prob</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, returns the probability of the predictions, by default False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The predicted values or probabilities.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vtacML.pipeline.VTACMLPipe.save_best_model">
+<span class="sig-name descname"><span class="pre">save_best_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'best_model'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/vtacML/pipeline.html#VTACMLPipe.save_best_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vtacML.pipeline.VTACMLPipe.save_best_model" title="Link to this definition">¶</a></dt>
+<dd><p>Saves best model from training to the specified path in the config file. Optionally change name and/or path
+of the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model_name</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of the model to be saved. Default=’best_model’.</p></li>
+<li><p><strong>model_path</strong> (<em>str</em><em>, </em><em>optional</em>) – Path to the model to be saved. Default=’model_path’ in config file</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vtacML.pipeline.VTACMLPipe.train">
+<span class="sig-name descname"><span class="pre">train</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">save_all_model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resample_flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scoring</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'f1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/vtacML/pipeline.html#VTACMLPipe.train"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vtacML.pipeline.VTACMLPipe.train" title="Link to this definition">¶</a></dt>
+<dd><p>Train the pipeline with the given data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>save_all_model</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to save best model of each model type to output directory. Default is False.</p></li>
+<li><p><strong>resample_flag</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to resample the data. Default is False</p></li>
+<li><p><strong>scoring</strong> (<em>str</em><em>, </em><em>optional</em>) – The scoring function to use. Default is ‘f1’.</p></li>
+<li><p><strong>cv</strong> (<em>int</em><em>, </em><em>optional</em>) – The cross-validation split to use. Default is 5.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Trained machine learning pipeline.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Pipeline</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="vtacML.pipeline.predict_from_best_pipeline">
+<span class="sig-prename descclassname"><span class="pre">vtacML.pipeline.</span></span><span class="sig-name descname"><span class="pre">predict_from_best_pipeline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prob_flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'0.974_rfc_best_model.pkl'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/vtacML/pipeline.html#predict_from_best_pipeline"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vtacML.pipeline.predict_from_best_pipeline" title="Link to this definition">¶</a></dt>
+<dd><p>Predict using the best model pipeline.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>array-like</em>) – Features to predict.</p></li>
+<li><p><strong>prob_flag</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to return probabilities, by default False.</p></li>
+<li><p><strong>model_name</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of the model to use, by default ‘0.974_rfc_best_model.pkl’</p></li>
+<li><p><strong>model_path</strong> (<em>str</em><em>, </em><em>optional</em>) – Path to the model to use for prediction, by default ‘None’</p></li>
+<li><p><strong>config_path</strong> (<em>str</em><em>, </em><em>optional</em>) – Path to the configuration file, by default ‘../config/config.yaml’.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Predicted values or probabilities.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">vtacML</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Docs vtacML</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-vtacML.pipeline">Pipeline</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome to vtacML’s homepage!</a></li>
+  </ul></li>
+</ul>
+</div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, Jeremy Palmerio.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.3.7</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      
+      |
+      <a href="_sources/modules.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

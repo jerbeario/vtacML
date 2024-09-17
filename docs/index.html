@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Welcome to vtacML’s homepage! &#8212; vtacML  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=61cd365c" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=12dfc556" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Docs vtacML" href="modules.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="welcome-to-vtacml-s-homepage">
+<h1>Welcome to vtacML’s homepage!<a class="headerlink" href="#welcome-to-vtacml-s-homepage" title="Link to this heading">¶</a></h1>
+<section id="vtacml">
+<h2>vtacML<a class="headerlink" href="#vtacml" title="Link to this heading">¶</a></h2>
+<p>vtacML is a Python package designed for the real-time analysis of data from the Visible Telescope (VT) of the SVOM satellite. This package uses machine learning models to analyze features from a list  of observed VT sources and identify potential gamma-ray burst (GRB) optical afterglow candidates. vtacML is integrated into the real-time SVOM VT VHF pipeline and flags each source detected, indicating the probability that it is a GRB candidate. This information is then used by Burst Advocates (BAs) on shift to help them identify which source is the real GRB counterpart.</p>
+<section id="table-of-contents">
+<h3>Table of Contents<a class="headerlink" href="#table-of-contents" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="#overview">Overview</a></p></li>
+<li><p><a class="reference external" href="#installation">Installation</a></p></li>
+<li><p><a class="reference external" href="#usage">Usage</a></p>
+<ul>
+<li><p><a class="reference external" href="#quick-start">Quick Start</a></p></li>
+<li><p><a class="reference external" href="#grid-search-and-model-training">Grid Search and Model Training</a></p></li>
+<li><p><a class="reference external" href="#loading-and-using-the-best-model">Loading and Using the Best Model</a></p></li>
+<li><p><a class="reference external" href="#using-pre-trained-model-for-immediate-prediction">Using Pre-trained Model for Immediate Prediction</a></p></li>
+<li><p><a class="reference external" href="#config-file">Config File</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="#documentation">Documentation</a></p></li>
+</ul>
+</section>
+<section id="overview">
+<h3>Overview<a class="headerlink" href="#overview" title="Link to this heading">¶</a></h3>
+<p>The SVOM mission, a collaboration between the China National Space Administration (CNSA) and the French space agency CNES, aims to study gamma-ray bursts (GRBs), the most energetic explosions in the universe. The Visible Telescope (VT) on SVOM plays a critical role in observing these events in the optical wavelength range.</p>
+<p>vtacML leverages machine learning to analyze VT data, providing a probability score for each observation to indicate its likelihood of being a GRB candidate. The package includes tools for data preprocessing, model training, evaluation, and visualization.</p>
+</section>
+<section id="installation">
+<h3>Installation<a class="headerlink" href="#installation" title="Link to this heading">¶</a></h3>
+<p>To install vtacML, you can use <code class="code docutils literal notranslate"><span class="pre">pip</span></code>:</p>
+<div class="code sh highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">vtacML</span>
+</pre></div>
+</div>
+<p>Alternatively, you can clone the repository and install the package locally:</p>
+<div class="code sh highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">jerbeario</span><span class="o">/</span><span class="n">VTAC_ML</span><span class="o">.</span><span class="n">git</span>
+<span class="n">cd</span> <span class="n">vtacML</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">.</span>
+</pre></div>
+</div>
+</section>
+<section id="usage">
+<h3>Usage<a class="headerlink" href="#usage" title="Link to this heading">¶</a></h3>
+<section id="quick-start">
+<h4>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading">¶</a></h4>
+<p>Here’s a quick example to get you started with vtacML:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">vtacML.pipeline</span> <span class="kn">import</span> <span class="n">VTACMLPipe</span>
+
+<span class="c1"># Initialize the pipeline</span>
+<span class="n">pipeline</span> <span class="o">=</span> <span class="n">VTACMLPipe</span><span class="p">()</span>
+
+<span class="c1"># Load configuration</span>
+<span class="n">pipeline</span><span class="o">.</span><span class="n">load_config</span><span class="p">(</span><span class="s1">&#39;path/to/config.yaml&#39;</span><span class="p">)</span>
+
+<span class="c1"># Train the model</span>
+<span class="n">pipeline</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+
+<span class="c1"># Evaluate the model</span>
+<span class="n">pipeline</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="s1">&#39;evaluation_name&#39;</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Predict GRB candidates</span>
+<span class="n">predictions</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">observation_dataframe</span><span class="p">,</span> <span class="n">prob</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">predictions</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="grid-search-and-model-training">
+<h4>Grid Search and Model Training<a class="headerlink" href="#grid-search-and-model-training" title="Link to this heading">¶</a></h4>
+<p>vtacML can perform grid search on a large array of models and parameters specified in the configuration file. Initialize the <code class="code docutils literal notranslate"><span class="pre">VTACMLPipe</span></code> class with a specified config file (or use the default) and train it. Then, you can save the best model for future use.</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">vtacML.pipeline</span> <span class="kn">import</span> <span class="n">VTACMLPipe</span>
+
+<span class="c1"># Initialize the pipeline with a configuration file</span>
+<span class="n">pipeline</span> <span class="o">=</span> <span class="n">VTACMLPipe</span><span class="p">(</span><span class="n">config_file</span><span class="o">=</span><span class="s1">&#39;path/to/config.yaml&#39;</span><span class="p">)</span>
+
+<span class="c1"># Train the model with grid search</span>
+<span class="n">pipeline</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+
+<span class="c1"># Save the best model</span>
+<span class="n">pipeline</span><span class="o">.</span><span class="n">save_best_model</span><span class="p">(</span><span class="s1">&#39;path/to/save/best_model.pkl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="loading-and-using-the-best-model">
+<h4>Loading and Using the Best Model<a class="headerlink" href="#loading-and-using-the-best-model" title="Link to this heading">¶</a></h4>
+<p>After training and saving the best model, you can create a new instance of the <code class="code docutils literal notranslate"><span class="pre">VTACMLPipe</span></code> class and load the best model for further use.</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">vtacML.pipeline</span> <span class="kn">import</span> <span class="n">VTACMLPipe</span>
+
+<span class="c1"># Initialize a new pipeline instance</span>
+<span class="n">pipeline</span> <span class="o">=</span> <span class="n">VTACMLPipe</span><span class="p">()</span>
+
+<span class="c1"># Load the best model</span>
+<span class="n">pipeline</span><span class="o">.</span><span class="n">load_best_model</span><span class="p">(</span><span class="s1">&#39;path/to/save/best_model.pkl&#39;</span><span class="p">)</span>
+
+<span class="c1"># Predict GRB candidates</span>
+<span class="n">predictions</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">observation_dataframe</span><span class="p">,</span> <span class="n">prob</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">predictions</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="using-pre-trained-model-for-immediate-prediction">
+<h4>Using Pre-trained Model for Immediate Prediction<a class="headerlink" href="#using-pre-trained-model-for-immediate-prediction" title="Link to this heading">¶</a></h4>
+<p>If you already have a trained model, you can use the quick wrapper function <code class="code docutils literal notranslate"><span class="pre">predict_from_best_pipeline</span></code> to predict data immediately. A pre-trained model is available by default.</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">vtacML.pipeline</span> <span class="kn">import</span> <span class="n">predict_from_best_pipeline</span>
+
+<span class="c1"># Predict GRB candidates using the pre-trained model</span>
+<span class="n">predictions</span> <span class="o">=</span> <span class="n">predict_from_best_pipeline</span><span class="p">(</span><span class="n">observation_dataframe</span><span class="p">,</span> <span class="n">model_path</span><span class="o">=</span><span class="s1">&#39;path/to/pretrained_model.pkl&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">predictions</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="config-file">
+<h4>Config File<a class="headerlink" href="#config-file" title="Link to this heading">¶</a></h4>
+<p>The config file is used to configure the model searching process.</p>
+<div class="code yaml highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Default config file, used to search for best model using only first two sequences (X0, X1) from the VT pipeline</span>
+<span class="n">Inputs</span><span class="p">:</span>
+  <span class="n">file</span><span class="p">:</span> <span class="s1">&#39;combined_qpo_vt_all_cases_with_GRB_with_flags.parquet&#39;</span> <span class="c1"># Data file used for training. Located in /data/</span>
+<span class="c1">#  path: &#39;combined_qpo_vt_with_GRB.parquet&#39;</span>
+<span class="c1">#  path: &#39;combined_qpo_vt_faint_case_with_GRB_with_flags.parquet&#39;</span>
+  <span class="n">columns</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">&quot;MAGCAL_R0&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;MAGCAL_B0&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;MAGERR_R0&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;MAGERR_B0&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;MAGCAL_R1&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;MAGCAL_B1&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;MAGERR_R1&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;MAGERR_B1&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;MAGVAR_R1&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;MAGVAR_B1&quot;</span><span class="p">,</span>
+    <span class="s1">&#39;EFLAG_R0&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;EFLAG_R1&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;EFLAG_B0&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;EFLAG_B1&#39;</span><span class="p">,</span>
+    <span class="s2">&quot;NEW_SRC&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;DMAG_CAT&quot;</span>
+    <span class="p">]</span> <span class="c1"># features used for training</span>
+  <span class="n">target_column</span><span class="p">:</span> <span class="s1">&#39;IS_GRB&#39;</span> <span class="c1"># feature column that holds the class information to be predicted</span>
+
+<span class="c1"># Set of models and parameters to perform GridSearchCV over</span>
+<span class="n">Models</span><span class="p">:</span>
+  <span class="n">rfc</span><span class="p">:</span>
+    <span class="n">class</span><span class="p">:</span> <span class="n">RandomForestClassifier</span><span class="p">()</span>
+    <span class="n">param_grid</span><span class="p">:</span>
+      <span class="s1">&#39;rfc__n_estimators&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">]</span>  <span class="c1"># Number of trees in the forest</span>
+      <span class="s1">&#39;rfc__max_depth&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>  <span class="c1"># Maximum depth of the tree</span>
+      <span class="s1">&#39;rfc__min_samples_split&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>  <span class="c1"># Minimum number of samples required to split an internal node</span>
+      <span class="s1">&#39;rfc__min_samples_leaf&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>  <span class="c1"># Minimum number of samples required to be at a leaf node</span>
+      <span class="s1">&#39;rfc__bootstrap&#39;</span><span class="p">:</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">]</span>  <span class="c1"># Whether bootstrap samples are used when building trees</span>
+  <span class="n">ada</span><span class="p">:</span>
+    <span class="n">class</span><span class="p">:</span> <span class="n">AdaBoostClassifier</span><span class="p">()</span>
+    <span class="n">param_grid</span><span class="p">:</span>
+      <span class="s1">&#39;ada__n_estimators&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">]</span>  <span class="c1"># Number of weak learners</span>
+      <span class="s1">&#39;ada__learning_rate&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>  <span class="c1"># Learning rate</span>
+      <span class="s1">&#39;ada__algorithm&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;SAMME&#39;</span><span class="p">]</span>  <span class="c1"># Algorithm for boosting</span>
+  <span class="n">svc</span><span class="p">:</span>
+    <span class="n">class</span><span class="p">:</span> <span class="n">SVC</span><span class="p">()</span>
+    <span class="n">param_grid</span><span class="p">:</span>
+      <span class="s1">&#39;svc__C&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">]</span>  <span class="c1"># Regularization parameter</span>
+      <span class="s1">&#39;svc__kernel&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;poly&#39;</span><span class="p">,</span> <span class="s1">&#39;rbf&#39;</span><span class="p">,</span> <span class="s1">&#39;sigmoid&#39;</span><span class="p">]</span>  <span class="c1"># Kernel type to be used in the algorithm</span>
+      <span class="s1">&#39;svc__gamma&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;scale&#39;</span><span class="p">,</span> <span class="s1">&#39;auto&#39;</span><span class="p">]</span>  <span class="c1"># Kernel coefficient</span>
+      <span class="s1">&#39;svc__degree&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>  <span class="c1"># Degree of the polynomial kernel function (if `kernel` is &#39;poly&#39;)</span>
+  <span class="n">knn</span><span class="p">:</span>
+    <span class="n">class</span><span class="p">:</span> <span class="n">KNeighborsClassifier</span><span class="p">()</span>
+    <span class="n">param_grid</span><span class="p">:</span>
+      <span class="s1">&#39;knn__n_neighbors&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>  <span class="c1"># Number of neighbors to use</span>
+      <span class="s1">&#39;knn__weights&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="s1">&#39;distance&#39;</span><span class="p">]</span>  <span class="c1"># Weight function used in prediction</span>
+      <span class="s1">&#39;knn__algorithm&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;ball_tree&#39;</span><span class="p">,</span> <span class="s1">&#39;kd_tree&#39;</span><span class="p">,</span> <span class="s1">&#39;brute&#39;</span><span class="p">]</span>  <span class="c1"># Algorithm used to compute the nearest neighbors</span>
+      <span class="s1">&#39;knn__p&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>  <span class="c1"># Power parameter for the Minkowski metric</span>
+  <span class="n">lr</span><span class="p">:</span>
+    <span class="n">class</span><span class="p">:</span> <span class="n">LogisticRegression</span><span class="p">()</span>
+    <span class="n">param_grid</span><span class="p">:</span>
+      <span class="s1">&#39;lr__penalty&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;l1&#39;</span><span class="p">,</span> <span class="s1">&#39;l2&#39;</span><span class="p">,</span> <span class="s1">&#39;elasticnet&#39;</span><span class="p">]</span>  <span class="c1"># Specify the norm of the penalty</span>
+      <span class="s1">&#39;lr__C&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>  <span class="c1"># Inverse of regularization strength</span>
+      <span class="s1">&#39;lr__solver&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;newton-cg&#39;</span><span class="p">,</span> <span class="s1">&#39;lbfgs&#39;</span><span class="p">,</span> <span class="s1">&#39;liblinear&#39;</span><span class="p">,</span> <span class="s1">&#39;sag&#39;</span><span class="p">,</span> <span class="s1">&#39;saga&#39;</span><span class="p">]</span>  <span class="c1"># Algorithm to use in the optimization problem</span>
+      <span class="s1">&#39;lr__max_iter&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">]</span>  <span class="c1"># Maximum number of iterations taken for the solvers to converge</span>
+  <span class="n">dt</span><span class="p">:</span>
+    <span class="n">class</span><span class="p">:</span> <span class="n">DecisionTreeClassifier</span><span class="p">()</span>
+    <span class="n">param_grid</span><span class="p">:</span>
+      <span class="s1">&#39;dt__criterion&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;gini&#39;</span><span class="p">,</span> <span class="s1">&#39;entropy&#39;</span><span class="p">]</span>  <span class="c1"># The function to measure the quality of a split</span>
+      <span class="s1">&#39;dt__splitter&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="s1">&#39;random&#39;</span><span class="p">]</span>  <span class="c1"># The strategy used to choose the split at each node</span>
+      <span class="s1">&#39;dt__max_depth&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>  <span class="c1"># Maximum depth of the tree</span>
+      <span class="s1">&#39;dt__min_samples_split&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>  <span class="c1"># Minimum number of samples required to split an internal node</span>
+      <span class="s1">&#39;dt__min_samples_leaf&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>  <span class="c1"># Minimum number of samples required to be at a leaf node</span>
+
+<span class="c1"># Output directories</span>
+<span class="n">Outputs</span><span class="p">:</span>
+  <span class="n">model_path</span><span class="p">:</span> <span class="s1">&#39;/output/models&#39;</span>
+  <span class="n">viz_path</span><span class="p">:</span> <span class="s1">&#39;/output/visualizations/&#39;</span>
+  <span class="n">plot_correlation</span><span class="p">:</span>
+    <span class="n">flag</span><span class="p">:</span> <span class="kc">True</span>
+    <span class="n">path</span><span class="p">:</span> <span class="s1">&#39;output/corr_plots/&#39;</span>
+
+</pre></div>
+</div>
+</section>
+</section>
+<section id="documentation">
+<h3>Documentation<a class="headerlink" href="#documentation" title="Link to this heading">¶</a></h3>
+</section>
+</section>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Docs vtacML</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules.html#module-vtacML.pipeline">Pipeline</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Link to this heading">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="#">vtacML</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Docs vtacML</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+      <li>Next: <a href="modules.html" title="next chapter">Docs vtacML</a></li>
+  </ul></li>
+</ul>
+</div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, Jeremy Palmerio.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.3.7</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
