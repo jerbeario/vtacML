@@ -1,123 +1,56 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="./">
-<head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>vtacML package &mdash; vtacML v1.20.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=92fd9be5" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="_static/jquery.js?v=5d32c60e"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=81447c41"></script>
-        <script src="_static/doctools.js?v=9a2dae69"></script>
-        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="_static/js/theme.js"></script>
+    <title>vtacML package &#8212; vtacML v1.20.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=61cd365c" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=12dfc556" />
+    <script src="_static/documentation_options.js?v=81447c41"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="vtacML" href="modules.html" /> 
-</head>
+    <link rel="prev" title="vtacML" href="modules.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
 
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
+  
+  
 
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
           
-          
-          <a href="index.html" class="icon icon-home">
-            vtacML
-          </a>
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="modules.html">vtacML</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">vtacML package</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-vtacML.evaluate_best_model">vtacML.evaluate_best_model module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-vtacML.models">vtacML.models module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-vtacML.pipeline">vtacML.pipeline module</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#vtacML.pipeline.VTACMLPipe"><code class="docutils literal notranslate"><span class="pre">VTACMLPipe</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#vtacML.pipeline.predict_from_best_pipeline"><code class="docutils literal notranslate"><span class="pre">predict_from_best_pipeline()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#module-vtacML.predict">vtacML.predict module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-vtacML.preparation">vtacML.preparation module</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#vtacML.preparation.Cleaner"><code class="docutils literal notranslate"><span class="pre">Cleaner</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#vtacML.preparation.OneHotEncoderCustom"><code class="docutils literal notranslate"><span class="pre">OneHotEncoderCustom</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#module-vtacML.search_best_model">vtacML.search_best_model module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-vtacML.utils">vtacML.utils module</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#vtacML.utils.get_path"><code class="docutils literal notranslate"><span class="pre">get_path()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#module-vtacML">Module contents</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
 
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">vtacML</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="modules.html">vtacML</a></li>
-      <li class="breadcrumb-item active">vtacML package</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="_sources/vtacML.rst.txt" rel="nofollow"> View page source</a>
-      </li>
-  </ul>
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
+          <div class="body" role="main">
+            
   <section id="vtacml-package">
-<h1>vtacML package<a class="headerlink" href="#vtacml-package" title="Link to this heading"></a></h1>
+<h1>vtacML package<a class="headerlink" href="#vtacml-package" title="Link to this heading">¶</a></h1>
 <section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
 </section>
 <section id="module-vtacML.evaluate_best_model">
-<span id="vtacml-evaluate-best-model-module"></span><h2>vtacML.evaluate_best_model module<a class="headerlink" href="#module-vtacML.evaluate_best_model" title="Link to this heading"></a></h2>
+<span id="vtacml-evaluate-best-model-module"></span><h2>vtacML.evaluate_best_model module<a class="headerlink" href="#module-vtacML.evaluate_best_model" title="Link to this heading">¶</a></h2>
 <p>Evaluate best model given a trained model.</p>
 </section>
 <section id="module-vtacML.models">
-<span id="vtacml-models-module"></span><h2>vtacML.models module<a class="headerlink" href="#module-vtacML.models" title="Link to this heading"></a></h2>
+<span id="vtacml-models-module"></span><h2>vtacML.models module<a class="headerlink" href="#module-vtacML.models" title="Link to this heading">¶</a></h2>
 <p>Script to see available models</p>
 </section>
 <section id="module-vtacML.pipeline">
-<span id="vtacml-pipeline-module"></span><h2>vtacML.pipeline module<a class="headerlink" href="#module-vtacML.pipeline" title="Link to this heading"></a></h2>
+<span id="vtacml-pipeline-module"></span><h2>vtacML.pipeline module<a class="headerlink" href="#module-vtacML.pipeline" title="Link to this heading">¶</a></h2>
 <p>Pipeline for optimizing, training and using a classification pipeline to flag
 observation as GRBs or not for the VTAC pipeline of the SVOM mission.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="vtacML.pipeline.VTACMLPipe">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">vtacML.pipeline.</span></span><span class="sig-name descname"><span class="pre">VTACMLPipe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'config/config.yaml'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/vtacML/pipeline.html#VTACMLPipe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vtacML.pipeline.VTACMLPipe" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">vtacML.pipeline.</span></span><span class="sig-name descname"><span class="pre">VTACMLPipe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'config/config.yaml'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/vtacML/pipeline.html#VTACMLPipe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vtacML.pipeline.VTACMLPipe" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A machine learning pipeline for training and evaluating an optimal model for optical identification of GRBs for the
 SVOM mission.</p>
@@ -128,13 +61,13 @@ SVOM mission.</p>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="vtacML.pipeline.VTACMLPipe.display_models">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">display_models</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/vtacML/pipeline.html#VTACMLPipe.display_models"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vtacML.pipeline.VTACMLPipe.display_models" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">display_models</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/vtacML/pipeline.html#VTACMLPipe.display_models"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vtacML.pipeline.VTACMLPipe.display_models" title="Link to this definition">¶</a></dt>
 <dd><p>Displays available models in the output directory.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="vtacML.pipeline.VTACMLPipe.evaluate">
-<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/vtacML/pipeline.html#VTACMLPipe.evaluate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vtacML.pipeline.VTACMLPipe.evaluate" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/vtacML/pipeline.html#VTACMLPipe.evaluate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vtacML.pipeline.VTACMLPipe.evaluate" title="Link to this definition">¶</a></dt>
 <dd><p>Evaluate the best model with various metrics and visualization.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -148,7 +81,7 @@ SVOM mission.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="vtacML.pipeline.VTACMLPipe.load_config">
-<span class="sig-name descname"><span class="pre">load_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/vtacML/pipeline.html#VTACMLPipe.load_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vtacML.pipeline.VTACMLPipe.load_config" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">load_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/vtacML/pipeline.html#VTACMLPipe.load_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vtacML.pipeline.VTACMLPipe.load_config" title="Link to this definition">¶</a></dt>
 <dd><p>Load the configuration file and prepare the data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -159,7 +92,7 @@ SVOM mission.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="vtacML.pipeline.VTACMLPipe.load_model">
-<span class="sig-name descname"><span class="pre">load_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/vtacML/pipeline.html#VTACMLPipe.load_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vtacML.pipeline.VTACMLPipe.load_model" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">load_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/vtacML/pipeline.html#VTACMLPipe.load_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vtacML.pipeline.VTACMLPipe.load_model" title="Link to this definition">¶</a></dt>
 <dd><p>Loads ‘model_name’ into current pipeline.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -170,7 +103,7 @@ SVOM mission.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="vtacML.pipeline.VTACMLPipe.predict">
-<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prob</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/vtacML/pipeline.html#VTACMLPipe.predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vtacML.pipeline.VTACMLPipe.predict" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prob</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/vtacML/pipeline.html#VTACMLPipe.predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vtacML.pipeline.VTACMLPipe.predict" title="Link to this definition">¶</a></dt>
 <dd><p>Predict using the best model.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -190,7 +123,7 @@ SVOM mission.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="vtacML.pipeline.VTACMLPipe.save_model">
-<span class="sig-name descname"><span class="pre">save_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'best_model'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/vtacML/pipeline.html#VTACMLPipe.save_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vtacML.pipeline.VTACMLPipe.save_model" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">save_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'best_model'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/vtacML/pipeline.html#VTACMLPipe.save_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vtacML.pipeline.VTACMLPipe.save_model" title="Link to this definition">¶</a></dt>
 <dd><p>Saves best model from training to the specified path in the config file. Optionally change name and/or path
 of the model.</p>
 <dl class="field-list simple">
@@ -205,7 +138,7 @@ of the model.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="vtacML.pipeline.VTACMLPipe.train">
-<span class="sig-name descname"><span class="pre">train</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">save_all_model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'outputs/models'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resample_flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scoring</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'f1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/vtacML/pipeline.html#VTACMLPipe.train"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vtacML.pipeline.VTACMLPipe.train" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">train</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">save_all_model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'outputs/models'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resample_flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scoring</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'f1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/vtacML/pipeline.html#VTACMLPipe.train"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vtacML.pipeline.VTACMLPipe.train" title="Link to this definition">¶</a></dt>
 <dd><p>Train the pipeline with the given data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -232,7 +165,7 @@ of the model.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="vtacML.pipeline.predict_from_best_pipeline">
-<span class="sig-prename descclassname"><span class="pre">vtacML.pipeline.</span></span><span class="sig-name descname"><span class="pre">predict_from_best_pipeline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prob_flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'0.974_rfc_best_model.pkl'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/vtacML/pipeline.html#predict_from_best_pipeline"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vtacML.pipeline.predict_from_best_pipeline" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">vtacML.pipeline.</span></span><span class="sig-name descname"><span class="pre">predict_from_best_pipeline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prob_flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'0.974_rfc_best_model.pkl'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/vtacML/pipeline.html#predict_from_best_pipeline"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vtacML.pipeline.predict_from_best_pipeline" title="Link to this definition">¶</a></dt>
 <dd><p>Predict using the best model pipeline.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -254,32 +187,32 @@ of the model.</p>
 
 </section>
 <section id="module-vtacML.predict">
-<span id="vtacml-predict-module"></span><h2>vtacML.predict module<a class="headerlink" href="#module-vtacML.predict" title="Link to this heading"></a></h2>
+<span id="vtacml-predict-module"></span><h2>vtacML.predict module<a class="headerlink" href="#module-vtacML.predict" title="Link to this heading">¶</a></h2>
 <p>Script to predict trained vtacML models</p>
 </section>
 <section id="module-vtacML.preparation">
-<span id="vtacml-preparation-module"></span><h2>vtacML.preparation module<a class="headerlink" href="#module-vtacML.preparation" title="Link to this heading"></a></h2>
+<span id="vtacml-preparation-module"></span><h2>vtacML.preparation module<a class="headerlink" href="#module-vtacML.preparation" title="Link to this heading">¶</a></h2>
 <p>Modified estimator for cleaning data in the classification pipeline.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="vtacML.preparation.Cleaner">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">vtacML.preparation.</span></span><span class="sig-name descname"><span class="pre">Cleaner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">variables</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/vtacML/preparation.html#Cleaner"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vtacML.preparation.Cleaner" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">vtacML.preparation.</span></span><span class="sig-name descname"><span class="pre">Cleaner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">variables</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/vtacML/preparation.html#Cleaner"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vtacML.preparation.Cleaner" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseEstimator</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">TransformerMixin</span></code></p>
 <p>Custom cleaning estimator for cleaning data in the classification.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="vtacML.preparation.Cleaner.clean_binary">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">clean_binary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/vtacML/preparation.html#Cleaner.clean_binary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vtacML.preparation.Cleaner.clean_binary" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">clean_binary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/vtacML/preparation.html#Cleaner.clean_binary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vtacML.preparation.Cleaner.clean_binary" title="Link to this definition">¶</a></dt>
 <dd><p>Clean the binary data for prediction.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="vtacML.preparation.Cleaner.fit">
-<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/vtacML/preparation.html#Cleaner.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vtacML.preparation.Cleaner.fit" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/vtacML/preparation.html#Cleaner.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vtacML.preparation.Cleaner.fit" title="Link to this definition">¶</a></dt>
 <dd><p>Not relevant</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="vtacML.preparation.Cleaner.handle_nans">
-<span class="sig-name descname"><span class="pre">handle_nans</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/vtacML/preparation.html#Cleaner.handle_nans"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vtacML.preparation.Cleaner.handle_nans" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">handle_nans</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/vtacML/preparation.html#Cleaner.handle_nans"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vtacML.preparation.Cleaner.handle_nans" title="Link to this definition">¶</a></dt>
 <dd><p>Handle NaN values by adding an extra _isnan column for every feature and imputing the missing values
 with the column mean.</p>
 <dl class="field-list simple">
@@ -300,13 +233,13 @@ with the column mean.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="vtacML.preparation.Cleaner.handle_outliers">
-<span class="sig-name descname"><span class="pre">handle_outliers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/vtacML/preparation.html#Cleaner.handle_outliers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vtacML.preparation.Cleaner.handle_outliers" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">handle_outliers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/vtacML/preparation.html#Cleaner.handle_outliers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vtacML.preparation.Cleaner.handle_outliers" title="Link to this definition">¶</a></dt>
 <dd><p>Not implemented yet.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="vtacML.preparation.Cleaner.transform">
-<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/vtacML/preparation.html#Cleaner.transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vtacML.preparation.Cleaner.transform" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/vtacML/preparation.html#Cleaner.transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vtacML.preparation.Cleaner.transform" title="Link to this definition">¶</a></dt>
 <dd><p>Transform method when custom cleaner is called during the pipeline training and fitting.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -328,18 +261,18 @@ with the column mean.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="vtacML.preparation.OneHotEncoderCustom">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">vtacML.preparation.</span></span><span class="sig-name descname"><span class="pre">OneHotEncoderCustom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">variables</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/vtacML/preparation.html#OneHotEncoderCustom"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vtacML.preparation.OneHotEncoderCustom" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">vtacML.preparation.</span></span><span class="sig-name descname"><span class="pre">OneHotEncoderCustom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">variables</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/vtacML/preparation.html#OneHotEncoderCustom"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vtacML.preparation.OneHotEncoderCustom" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseEstimator</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">TransformerMixin</span></code></p>
 <p>Custum one-hot encoding estimator.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="vtacML.preparation.OneHotEncoderCustom.fit">
-<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/vtacML/preparation.html#OneHotEncoderCustom.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vtacML.preparation.OneHotEncoderCustom.fit" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/vtacML/preparation.html#OneHotEncoderCustom.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vtacML.preparation.OneHotEncoderCustom.fit" title="Link to this definition">¶</a></dt>
 <dd><p>Fit the OneHotEncoder.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="vtacML.preparation.OneHotEncoderCustom.transform">
-<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/vtacML/preparation.html#OneHotEncoderCustom.transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vtacML.preparation.OneHotEncoderCustom.transform" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/vtacML/preparation.html#OneHotEncoderCustom.transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vtacML.preparation.OneHotEncoderCustom.transform" title="Link to this definition">¶</a></dt>
 <dd><p>Transform the OneHotEncoder.</p>
 </dd></dl>
 
@@ -347,53 +280,96 @@ with the column mean.</p>
 
 </section>
 <section id="module-vtacML.search_best_model">
-<span id="vtacml-search-best-model-module"></span><h2>vtacML.search_best_model module<a class="headerlink" href="#module-vtacML.search_best_model" title="Link to this heading"></a></h2>
+<span id="vtacml-search-best-model-module"></span><h2>vtacML.search_best_model module<a class="headerlink" href="#module-vtacML.search_best_model" title="Link to this heading">¶</a></h2>
 <p>Script to search best model based on config file</p>
 </section>
 <section id="module-vtacML.utils">
-<span id="vtacml-utils-module"></span><h2>vtacML.utils module<a class="headerlink" href="#module-vtacML.utils" title="Link to this heading"></a></h2>
+<span id="vtacml-utils-module"></span><h2>vtacML.utils module<a class="headerlink" href="#module-vtacML.utils" title="Link to this heading">¶</a></h2>
 <p>Utils functions for vtacML</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="vtacML.utils.get_path">
-<span class="sig-prename descclassname"><span class="pre">vtacML.utils.</span></span><span class="sig-name descname"><span class="pre">get_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subpath</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/vtacML/utils.html#get_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vtacML.utils.get_path" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">vtacML.utils.</span></span><span class="sig-name descname"><span class="pre">get_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subpath</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/vtacML/utils.html#get_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vtacML.utils.get_path" title="Link to this definition">¶</a></dt>
 <dd><p>Utility function to get the path to a subpath relative to ROOTDIR.</p>
 </dd></dl>
 
 </section>
 <section id="module-vtacML">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-vtacML" title="Link to this heading"></a></h2>
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-vtacML" title="Link to this heading">¶</a></h2>
 <p>Utilities for working with vtacML pipeline.</p>
 </section>
 </section>
 
 
-           </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="modules.html" class="btn btn-neutral float-left" title="vtacML" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright 2024, Jeremy Palmerio.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
-
-</footer>
+          
         </div>
       </div>
-    </section>
-  </div>
-  <script>
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script> 
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">vtacML</a></h1>
 
-</body>
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">vtacML</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">vtacML package</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">vtacML</a><ul>
+      <li>Previous: <a href="modules.html" title="previous chapter">vtacML</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, Jeremy Palmerio.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.3.7</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      
+      |
+      <a href="_sources/vtacML.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
 </html>
